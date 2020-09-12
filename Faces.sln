@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faces", "Faces\Faces.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacesWebApi", "FacesWebApi\FacesWebApi.csproj", "{7B4B0F45-19DB-4340-A101-6F274CD347CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FaceDetection", "FaceDetection\FaceDetection.csproj", "{29A5E8E4-320C-4BE0-BD93-51C6763B4336}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -87,6 +89,18 @@ Global
 		{7B4B0F45-19DB-4340-A101-6F274CD347CC}.Release|iPhone.Build.0 = Release|Any CPU
 		{7B4B0F45-19DB-4340-A101-6F274CD347CC}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{7B4B0F45-19DB-4340-A101-6F274CD347CC}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{29A5E8E4-320C-4BE0-BD93-51C6763B4336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29A5E8E4-320C-4BE0-BD93-51C6763B4336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29A5E8E4-320C-4BE0-BD93-51C6763B4336}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{29A5E8E4-320C-4BE0-BD93-51C6763B4336}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{29A5E8E4-320C-4BE0-BD93-51C6763B4336}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{29A5E8E4-320C-4BE0-BD93-51C6763B4336}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{29A5E8E4-320C-4BE0-BD93-51C6763B4336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29A5E8E4-320C-4BE0-BD93-51C6763B4336}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29A5E8E4-320C-4BE0-BD93-51C6763B4336}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{29A5E8E4-320C-4BE0-BD93-51C6763B4336}.Release|iPhone.Build.0 = Release|Any CPU
+		{29A5E8E4-320C-4BE0-BD93-51C6763B4336}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{29A5E8E4-320C-4BE0-BD93-51C6763B4336}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
