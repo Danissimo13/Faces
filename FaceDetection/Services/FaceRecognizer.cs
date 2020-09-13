@@ -12,10 +12,17 @@ namespace FaceDetection.Services
         private Array2D<RgbPixel> Image { get; set; } // This image
         private ModelPathSystem PathSystem { get; set; } // Model path system
 
-        public FaceRecognizer(byte[] image, RgbPixel penColor, ModelPathSystem pathSystem)
+        public FaceRecognizer(byte[] image, RgbPixel penColor, ModelPathSystem pathSystem) // Get image from bytes array
         {
             PathSystem = pathSystem;
-            Image = image.ToArray2D(PathSystem); // Get image Array2D from bytes array
+            Image = image.ToArray2D(PathSystem); 
+            Color = penColor;
+        }
+
+        public FaceRecognizer(string imageName, RgbPixel penColor, ModelPathSystem pathSystem) // Get image from image file
+        {
+            PathSystem = pathSystem;
+            Image = Dlib.LoadImage<RgbPixel>(Path.Combine(PathSystem.InputsPath, imageName));
             Color = penColor;
         }
 
