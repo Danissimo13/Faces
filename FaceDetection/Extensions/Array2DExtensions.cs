@@ -1,10 +1,10 @@
 ﻿using DlibDotNet;
-using FaceDetection.Services;
+using FaceDetection.Core;
 using System.IO;
 
 namespace FaceDetection.Extensions
 {
-    static class Array2DExtensions
+    internal static class Array2DExtensions
     {
         public static Array2D<RgbPixel> ToArray2D(this byte[] data, ModelPathSystem pathSystem) // Convert Array2D to byte array
         {

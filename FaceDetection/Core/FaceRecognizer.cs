@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace FaceDetection.Services
+namespace FaceDetection.Core
 {
     public class FaceRecognizer : IDisposable
     {

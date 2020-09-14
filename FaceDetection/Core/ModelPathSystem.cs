@@ -1,8 +1,7 @@
 ﻿using DlibDotNet;
-using System;
 using System.IO;
 
-namespace FaceDetection.Services
+namespace FaceDetection.Core
 {
     public class ModelPathSystem
     {
