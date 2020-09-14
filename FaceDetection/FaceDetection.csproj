@@ -11,6 +11,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Dlib License" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Dlib License" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Assets\Input\" />
     <Folder Include="Assets\Output\" />
   </ItemGroup>
