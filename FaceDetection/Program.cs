@@ -31,7 +31,7 @@ namespace FaceDetection
         private static void TestDetect()
         {
              // create path system with input and output pathes
-            string inputFileName = "1.jpg";
+            string inputFileName = "from.jpg";
 
             byte[] img;
             using (FileStream reader = new FileStream(Path.Combine(pathSystem.InputsPath, inputFileName), FileMode.Open))
@@ -51,8 +51,8 @@ namespace FaceDetection
 
         private static void TestChange()
         {
-            string fromImageName = "1.jpg";
-            string toImageName = "2.jpg";
+            string fromImageName = "from.jpg";
+            string toImageName = "to.jpg";
             string outputImageName = "deepFake.jpg";
 
             Console.WriteLine("===Reading from image file===");
