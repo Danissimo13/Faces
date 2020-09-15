@@ -11,6 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ApplicationDefinition Include="Assets\shape_predictor_68_face_landmarks.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </ApplicationDefinition>
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Assets\Input\" />
     <Folder Include="Assets\Output\" />
   </ItemGroup>
