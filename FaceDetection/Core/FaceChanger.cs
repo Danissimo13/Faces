@@ -1,4 +1,4 @@
-﻿using System.Drawing;
+using System.Drawing;
 using FaceDetection.Extensions;
 using AI.Dlib;
 using System.Drawing.Imaging;
@@ -13,7 +13,7 @@ namespace FaceDetection.Core
             Bitmap toBitmap = toImage.ToBitmap();
 
             Bitmap changedImage = ReplaceFaces(fromBitmap, toBitmap);
-
+          
             return changedImage.ToByteArray();
         }
 
