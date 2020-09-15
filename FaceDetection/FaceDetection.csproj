@@ -24,9 +24,6 @@
     <Reference Include="AI">
       <HintPath>bin\Debug\netcoreapp3.1\AI.dll</HintPath>
     </Reference>
-    <Reference Include="AI.ComputerVision.DeepFake">
-      <HintPath>bin\Debug\netcoreapp3.1\AI.ComputerVision.DeepFake.dll</HintPath>
-    </Reference>
     <Reference Include="AI.Dlib">
       <HintPath>bin\Debug\netcoreapp3.1\AI.Dlib.dll</HintPath>
     </Reference>

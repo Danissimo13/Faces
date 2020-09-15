@@ -1,5 +1,6 @@
 ﻿using System;
-using System.Drawing.Text;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using DlibDotNet;
 using FaceDetection.Core;
@@ -55,29 +56,13 @@ namespace FaceDetection
             string toImageName = "to.jpg";
             string outputImageName = "deepFake.jpg";
 
-            Console.WriteLine("===Reading from image file===");
-            byte[] fromImage;
-            using(FileStream reader = new FileStream(Path.Combine(pathSystem.InputsPath, fromImageName), FileMode.Open))
-            {
-                fromImage = new byte[reader.Length];
-                reader.Read(fromImage, 0, fromImage.Length);
-            }
-
-            Console.WriteLine("===Reading to image file===");
-            byte[] toImage;
-            using (FileStream reader = new FileStream(Path.Combine(pathSystem.InputsPath, toImageName), FileMode.Open))
-            {
-                toImage = new byte[reader.Length];
-                reader.Read(toImage, 0, toImage.Length);
-            }
 
             Console.WriteLine("===Replacing faces===");
-            byte[] changedImage = FaceReplacer.ReplaceFaces(fromImage, toImage);
-
+            Bitmap changedImage = FaceReplacer.ReplaceFaces(Path.Combine(pathSystem.InputsPath, fromImageName), Path.Combine(pathSystem.InputsPath, toImageName));
             Console.WriteLine("===Saving replaced faces image===");
             using (FileStream reader = new FileStream(Path.Combine(pathSystem.OutputsPath, outputImageName), FileMode.OpenOrCreate))
             {
-                reader.Write(changedImage);
+                changedImage.Save(reader, ImageFormat.Jpeg);
             }
         }
     }

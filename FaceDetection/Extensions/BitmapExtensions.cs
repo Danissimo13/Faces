@@ -20,13 +20,15 @@ namespace FaceDetection.Extensions
 
         public static byte[] ToByteArray(this Bitmap bitmap)
         {
+            byte[] array;
             using (MemoryStream reader = new MemoryStream())
             {
                 Image img = Image.FromHbitmap(bitmap.GetHbitmap());
                 img.Save(reader, ImageFormat.Jpeg);
-
-                return reader.ToArray();
+                array = reader.ToArray();
             }
+
+            return array;
         }
     }
 }
