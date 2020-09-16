@@ -7,9 +7,8 @@
   <ItemGroup>
     <Folder Include="wwwroot\faces\requests\" />
     <Folder Include="wwwroot\faces\responses\" />
-    <Folder Include="wwwroot\views\" />
-    <Folder Include="wwwroot\css\" />
-    <Folder Include="wwwroot\js\" />
+    <Folder Include="wwwroot\fonts\gilroy\" />
+    <Folder Include="wwwroot\lib\" />
   </ItemGroup>
 
   <ItemGroup>
