@@ -1,9 +1,23 @@
 {
   "version": "1.0",
   "defaultProvider": "cdnjs",
-  "libraries": [{
-  "library": "jquery@3.5.1",
-  "destination": "wwwroot/lib/jquery/"
-}
-]
+  "libraries": [
+    {
+      "library": "jquery@3.5.1",
+      "destination": "wwwroot/lib/jquery/"
+    },
+    {
+      "library": "open-iconic@1.1.1",
+      "destination": "wwwroot/lib/open-iconic/",
+      "files": [
+        "font/css/open-iconic.min.css",
+        "font/fonts/open-iconic.eot",
+        "font/fonts/open-iconic.otf",
+        "font/fonts/open-iconic.svg",
+        "font/fonts/open-iconic.ttf",
+        "font/fonts/open-iconic.woff",
+        "font/css/open-iconic-bootstrap.min.css"
+      ]
+    }
+  ]
 }
