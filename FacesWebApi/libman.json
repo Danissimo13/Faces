@@ -18,6 +18,13 @@
         "font/fonts/open-iconic.woff",
         "font/css/open-iconic-bootstrap.min.css"
       ]
+    },
+    {
+      "library": "jquery-cookie@1.4.1",
+      "destination": "wwwroot/lib/jquery-cookie/",
+      "files": [
+        "jquery.cookie.min.js"
+      ]
     }
   ]
 }
