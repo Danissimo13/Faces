@@ -12,7 +12,7 @@ function Router(routes) {
 }
 
 Router.prototype = {
-    route: undefined,
+    tab: undefined,
     routes: undefined,
     rootElem: undefined,
     onroutechange: undefined,
@@ -24,15 +24,10 @@ Router.prototype = {
         var r = this.routes;
         (function (scope, r) {
             window.addEventListener('hashchange', function (e) {
-                var oldRoute = e.oldURL.substring(e.oldURL.lastIndexOf('#'))
-                var newRoute = e.newURL.substring(e.newURL.lastIndexOf('#'));
-
-                scope.onroutechange(oldRoute, newRoute);
                 scope.hasChanged(scope, r);
             });
         })(this, r);
 
-        this.onroutechange('', window.location.hash);
         this.hasChanged(this, r);
     },
     hasChanged: function (scope, r) {
@@ -41,6 +36,9 @@ Router.prototype = {
                 var route = r[i];
                 if (route.isActiveRoute(window.location.hash.substr(1))) {
                     scope.goToRoute(route.htmlName);
+
+                    scope.onroutechange(this.tab, route.menuTab);
+                    this.tab = route.menuTab;
                 }
             }
         } else {
@@ -48,6 +46,9 @@ Router.prototype = {
                 var route = r[i];
                 if (route.default) {
                     scope.goToRoute(route.htmlName);
+
+                    scope.onroutechange("", route.menuTab);
+                    this.tab = route.menuTab;
                 }
             }
         }
