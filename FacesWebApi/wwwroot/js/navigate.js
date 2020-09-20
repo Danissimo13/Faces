@@ -1,18 +1,20 @@
 ﻿'use strict';
 
 (function () {
-    function onroutechange(oldRoute, newRoute) {
-        var oldSelector = '#navbar nav a[href="' + oldRoute + '"]';
-        var newSelector = '#navbar nav a[href="' + newRoute + '"]';
+    function onroutechange(oldMenuTab, newMenuTab) {
+        if (oldMenuTab) {
+            var oldSelector = '#navbar nav a[menu=' + oldMenuTab + ']';
+            $(oldSelector).removeClass('active');
+        }
 
-        $(oldSelector).removeClass('active');
+        var newSelector = '#navbar nav a[menu=' + newMenuTab + ']';
         $(newSelector).addClass('active');
     }
 
     function init() {
         var router = new Router([
-            new Route('home', 'home.html', true),
-            new Route('about', 'about.html')
+            new Route('home', 'home.html', 'home',true),
+            new Route('about', 'about.html', 'about')
         ]);
         router.onroutechange = onroutechange;
 
