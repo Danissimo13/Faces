@@ -1,0 +1,49 @@
+﻿<style>
+    #theme {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    #theme .theme {
+        display: flex;
+        cursor: pointer;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border: 2px solid var(--violet-color);
+        border-radius: var(--medium-round);
+        font-weight: bold;
+        transition: all 500ms;
+        margin: 10px;
+    }
+
+    #theme .theme:hover {
+        background-color: var(--violet-color);
+        color: var(--white-color);
+    }
+
+    #theme .theme.active {
+        background-color: var(--white-color);
+        color: var(--violet-color);
+    }
+
+    @media(max-width:768px), (max-device-width:768px){
+        #theme .theme{
+            width : 100px;
+            height : 100px;
+        }
+    }
+</style>
+
+<h1>All available color themes on the site</h1>
+<div id="theme">
+    <div class="theme" id="green"><span>Green</span></div>
+    <div class="theme" id="purple"><span>Purp</span></div>
+    <div class="theme" id="red">Red</div>
+    <div class="theme" id="blue">Blue</div>
+    <div class="theme" id="orange">Orang</div>
+    <div class="theme" id="multi">Multi</div>
+</div>
