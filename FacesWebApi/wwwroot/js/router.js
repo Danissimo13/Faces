@@ -37,6 +37,10 @@ Router.prototype = {
                 if (route.isActiveRoute(window.location.hash.substr(1))) {
                     scope.goToRoute(route.htmlName);
 
+                    if (route.jsName) {
+                        scope.loadJs(route.jsName);
+                    }
+
                     scope.onroutechange(this.tab, route.menuTab);
                     this.tab = route.menuTab;
                 }
@@ -47,6 +51,10 @@ Router.prototype = {
                 if (route.default) {
                     scope.goToRoute(route.htmlName);
 
+                    if (route.jsName) {
+                        scope.loadJs(route.jsName);
+                    }
+
                     scope.onroutechange("", route.menuTab);
                     this.tab = route.menuTab;
                 }
@@ -56,14 +64,14 @@ Router.prototype = {
     goToRoute: function (htmlName) {
         (function (scope) {
             var url = 'views/' + htmlName;
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState === 4 && this.status === 200) {
-                    scope.rootElem.innerHTML = this.responseText;
-                }
-            };
-            xhttp.open('GET', url, true);
-            xhttp.send();
+            $(scope.rootElem).load(url);
         })(this);
+    },
+    loadJs: function (jsName) {
+        (function ()
+        {
+            var url = 'js/' + jsName;
+            $.getScript(url);
+        })();
     }
 };
