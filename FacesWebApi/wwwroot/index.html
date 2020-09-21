@@ -3,20 +3,39 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+    <link rel="stylesheet" href="css/site.css" />
+    <link rel="stylesheet" href="lib/open-iconic/font/css/open-iconic-bootstrap.min.css" />
 </head>
 <body>
-    <header>
-        <a href="#about">About</a>
-    </header>
+    <aside id="navbar">
+        <a href="#home"><img id="logo" src="img/design/logo.png" /></a>
+        <nav>
+            <a href="#home" menu="home"><span class="oi oi-browser"> <span>Home</span></span></a>
+            <a href="#about" menu="about"><span class="oi oi-globe"> <span>About</span></span> </a>
+            <a href="#theme" menu="theme"><span class="oi oi-droplet"> <span>Theme</span></span></a>
+        </nav>
+        <div id="social-media">
+            <span id="social-label">Social media:</span>
+            <a href="https://instagram.com/faces.faceswap/"><img src="svg/design/instagram.svg" /></a>
+            <a href="https://vk.com/public198818550"><img src="svg/design/vk.svg" /></a>
+            <a href="https://twitter.com/faces88342934"><img src="svg/design/twitter.svg" /></a>
+        </div>
+    </aside>
 
-    <main id="app">
-
+    <main>
+        <div id="theme-switcher">
+            <div class="inner-circle"></div>
+        </div>
+        <div id="app"></div>
     </main>
 
     <footer>
+        <script src="lib/jquery/jquery.min.js"></script>
+        <script src="lib/jquery-cookie/jquery.cookie.min.js"></script>
         <script src="js/route.js"></script>
         <script src="js/router.js"></script>
-        <script src="js/app.js"></script>
+        <script src="js/navigate.js"></script>
+        <script src="js/theme.js"></script>
     </footer>
 </body>
 </html>
