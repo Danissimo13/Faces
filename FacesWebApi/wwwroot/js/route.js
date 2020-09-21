@@ -15,11 +15,13 @@ Route.prototype = {
     name: undefined,
     htmlName: undefined,
     menuTab: undefined,
+    jsName: undefined,
     default: undefined,
-    constructor: function (name, htmlName, menuTab,defaultRoute) {
+    constructor: function (name, htmlName, menuTab, jsName, defaultRoute) {
         this.name = name;
         this.htmlName = htmlName;
         this.menuTab = menuTab;
+        this.jsName = jsName;
         this.default = defaultRoute;
     },
     isActiveRoute: function (hashedPath) {
