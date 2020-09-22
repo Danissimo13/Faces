@@ -8,8 +8,7 @@ namespace FacesStorage.Data.Models
 
         public string Email { get; set; }
 
-        public Password Password { get; set; }
-        public int PasswordId { get; set; }
+        public string Password { get; set; }
 
         public Role Role { get; set; }
         public int RoleId { get; set; }
