@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.snk.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,7 +14,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.8" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FaceDetection\FaceDetection.csproj" />
+    <ProjectReference Include="..\FacesStorage.Data.Abstractions\FacesStorage.Data.Abstractions.csproj" />
+    <ProjectReference Include="..\FacesStorage.Data.Models\FacesStorage.Data.Models.csproj" />
+    <ProjectReference Include="..\FacesStorage.Data.MSSql\FacesStorage.Data.MSSql.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="key.snk">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   
 </Project>
