@@ -37,8 +37,9 @@ Router.prototype = {
                 if (route.isActiveRoute(window.location.hash.substr(1))) {
                     scope.goToRoute(route.htmlName);
 
-                    if (route.jsName) {
-                        scope.loadJs(route.jsName);
+                    if (route.jsNames) {
+                        for (var jsName of route.jsNames)
+                            scope.loadJs(jsName);
                     }
 
                     scope.onroutechange(this.tab, route.menuTab);
@@ -51,8 +52,9 @@ Router.prototype = {
                 if (route.default) {
                     scope.goToRoute(route.htmlName);
 
-                    if (route.jsName) {
-                        scope.loadJs(route.jsName);
+                    if (route.jsNames) {
+                        for (var jsName of route.jsNames)
+                            scope.loadJs(jsName);
                     }
 
                     scope.onroutechange("", route.menuTab);
