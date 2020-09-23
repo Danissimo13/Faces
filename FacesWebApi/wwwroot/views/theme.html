@@ -1,11 +1,11 @@
 ﻿<style>
-    #theme {
+    #theme-page {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
     }
 
-    #theme .theme {
+    #theme-page .theme {
         display: flex;
         cursor: pointer;
         flex-direction: row;
@@ -20,12 +20,12 @@
         margin: 10px;
     }
 
-    #theme .theme:hover {
+    #theme-page .theme:hover {
         background-color: var(--violet-color);
         color: var(--white-color);
     }
 
-    #theme .theme.active {
+    #theme-page .theme.active {
         background-color: var(--white-color);
         color: var(--violet-color);
     }
@@ -39,7 +39,7 @@
 </style>
 
 <h1>All available color themes on the site</h1>
-<div id="theme">
+<div id="theme-page">
     <div class="theme" id="green"><span>Green</span></div>
     <div class="theme" id="purple"><span>Purp</span></div>
     <div class="theme" id="red">Red</div>
