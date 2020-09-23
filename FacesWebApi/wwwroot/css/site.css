@@ -225,9 +225,41 @@ main::-webkit-scrollbar {
     color: var(--ref-color);
 }
 
+input:focus{
+    outline: 1px solid var(--violet-color);
+    outline-offset : -1px;
+}
+
+.default-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--violet-color) !important;
+    border: 2px solid var(--violet-color) !important;
+    border-radius : var(--small-round);
+    color: var(--white-color) !important;
+    font-weight: bold;
+    text-decoration : none;
+    transition: all 500ms;
+}
+
+.default-btn:focus{
+    outline : none;
+}
+
+.default-btn:hover {
+    background-color: var(--white-color) !important;
+    color: var(--violet-color) !important;
+}
+
 @media(max-width:768px), (max-device-width:768px) {
-    :root{
-        font-size : 28px;
+    form{
+        font-size : inherit;
+    }
+
+    form input{
+        font-size : inherit;
     }
 
     body {
@@ -238,8 +270,9 @@ main::-webkit-scrollbar {
         width : calc(100% - 10px * 2);
     }
 
-    main{
-        height : auto;
+    main {
+        height: auto;
+        font-size: 35px;
     }
 
     #navbar {
