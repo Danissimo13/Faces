@@ -1,0 +1,51 @@
+﻿<style>
+    #home-page {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #last-news{
+        height : 300px;
+        width : 100%;
+        border-bottom : 2px solid var(--violet-color);
+    }
+
+    #actions-label{
+        margin-top : 20px;
+        font-size : 35px;
+    }
+
+    #actions{
+        display : flex;
+        flex-direction : row;
+        flex-wrap : wrap;
+    }
+
+    #actions a {
+        padding : 5px;
+        margin : 10px;
+    }
+
+    @media(max-width:768px), (max-device-width:768px) {
+        #actions-label{
+            font-size : 50px;
+        }
+
+        #actions a{
+            font-size : 35px;
+        }
+    }
+</style>
+
+<div id="home-page">
+    <div id="last-news">
+        <img src=""/>
+        <p></p>
+    </div>
+    <div id="actions-label">Actions:</div>
+    <div id="actions">
+        <a href="#detect" class="default-btn"><span class="oi oi-magnifying-glass"> </span>&nbsp;Detect all faces</a>
+        <a href="#change" class="default-btn"><span class="oi oi-loop-circular"> </span>&nbsp;Change face</a>
+        <a href="#cut" class="default-btn"><span class="oi oi-layers"> </span>&nbsp;Cut all faces</a>
+    </div>
+</div>
