@@ -37,13 +37,10 @@ Router.prototype = {
                 if (route.isActiveRoute(window.location.hash.substr(1))) {
                     scope.goToRoute(route.htmlName);
 
-                    if (route.jsNames) {
-                        for (var jsName of route.jsNames)
-                            scope.loadJs(jsName);
-                    }
+                    scope.loadJs(route);
 
-                    scope.onroutechange(this.tab, route.menuTab);
-                    this.tab = route.menuTab;
+                    scope.onroutechange(scope.tab, route.menuTab);
+                    scope.tab = route.menuTab;
                 }
             }
         } else {
@@ -52,13 +49,10 @@ Router.prototype = {
                 if (route.default) {
                     scope.goToRoute(route.htmlName);
 
-                    if (route.jsNames) {
-                        for (var jsName of route.jsNames)
-                            scope.loadJs(jsName);
-                    }
+                    scope.loadJs(route);
 
                     scope.onroutechange("", route.menuTab);
-                    this.tab = route.menuTab;
+                    scope.tab = route.menuTab;
                 }
             }
         }
@@ -69,11 +63,18 @@ Router.prototype = {
             $(scope.rootElem).load(url);
         })(this);
     },
-    loadJs: function (jsName) {
+    loadJs: function (route) {
         (function ()
         {
-            var url = 'js/' + jsName;
-            $.getScript(url);
+            if (route.jsNames) {
+                var allScripts = "";
+                for (var jsName of route.jsNames) {
+                    var str = '<script src="js/' + jsName + '"></script>'
+                    allScripts += str;
+                }
+
+                $('#scripts').html(allScripts);
+            }
         })();
     }
 };
