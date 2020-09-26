@@ -11,20 +11,16 @@ $(function () {
         $(newSelector).addClass('active');
     }
 
-    function onhtmlloading(url) {
-        var scriptUrl = url;
-        $.getScript(scriptUrl);
-    }
-
     function init() {
         var router = new Router([
             new Route('home', 'home.html', 'home', [], true),
             new Route('acc', 'acc.html', 'acc', ['authorize.js']),
             new Route('login', 'login.html', 'acc', ['authorize.js', 'login.js']),
+            new Route('reg', 'reg.html', 'acc', ['authorize.js']),
             new Route('about', 'about.html', 'about'),
             new Route('theme', 'theme.html', 'theme', ['themes.js']),
         ]);
-        router.onhtmlloading = onhtmlloading;
+
         router.onroutechange = onroutechange;
 
         router.init();
