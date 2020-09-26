@@ -16,7 +16,7 @@ $(function () {
             new Route('home', 'home.html', 'home', [], true),
             new Route('acc', 'acc.html', 'acc', ['authorize.js']),
             new Route('login', 'login.html', 'acc', ['authorize.js', 'login.js']),
-            new Route('reg', 'reg.html', 'acc', ['authorize.js']),
+            new Route('reg', 'reg.html', 'acc', ['authorize.js', 'reg.js']),
             new Route('about', 'about.html', 'about'),
             new Route('theme', 'theme.html', 'theme', ['themes.js']),
         ]);
