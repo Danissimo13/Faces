@@ -177,6 +177,18 @@ body {
     display : none;
 }
 
+#nav-switcher {
+    display: none;
+    height: 65px;
+    font-size: 50px;
+    margin: 15px;
+    text-align : right;
+}
+
+.nav-hidden {
+    display: block;
+}
+
 main {
     position : relative;
     display: block;
@@ -253,26 +265,36 @@ input:focus{
     color: var(--violet-color) !important;
 }
 
+@media(min-width:768px), (min-device-width:768px) {
+    #references{
+        display : block;
+    }
+}
+
 @media(max-width:768px), (max-device-width:768px) {
-    form{
-        font-size : inherit;
+    form {
+        font-size: inherit;
     }
 
-    form input{
-        font-size : inherit;
+    form input {
+        font-size: inherit;
     }
 
     body {
         flex-direction: column;
-        margin : 10px;
-        height : 100%;
-        min-height : calc(100vh - 10px * 2);
-        width : calc(100% - 10px * 2);
+        margin: 10px;
+        height: 100%;
+        min-height: calc(100vh - 10px * 2);
+        width: calc(100% - 10px * 2);
     }
 
     main {
         height: auto;
         font-size: 35px;
+    }
+
+    .nav-hidden {
+        display: none !important;
     }
 
     #navbar {
@@ -287,35 +309,39 @@ input:focus{
         box-shadow: 0px -10px 15px -10px var(--violet-muffle-color) inset;
     }
 
-    #navbar #logo {
-        display: none;
-    }
+        #navbar #logo {
+            display: none;
+        }
 
-    #navbar nav a{
-        height : 100px;
-        font-size : 30px;
-    }
+        #navbar nav a {
+            height: 100px;
+            font-size: 30px;
+        }
 
-    #navbar nav a span span{
-        font-size : 35px;
-    }
+            #navbar nav a span span {
+                font-size: 35px;
+            }
 
-    #navbar #social-media{
-        position : relative;
-        bottom : 0;
-        margin-top : 10px;
-        margin-bottom : 10px;
-        justify-content : left;
-        align-items : center;
-    }
+        #navbar #social-media {
+            position: relative;
+            bottom: 0;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            justify-content: left;
+            align-items: center;
+        }
 
-    #navbar #social-media a img{
-        width : 50px;
-    }
+            #navbar #social-media a img {
+                width: 50px;
+            }
 
-    #navbar #social-media #social-label {
-        display: inline;
-        font-size : 35px;
-        margin-left : 10px;
+            #navbar #social-media #social-label {
+                display: inline;
+                font-size: 35px;
+                margin-left: 10px;
+            }
+
+    #nav-switcher {
+        display: block;
     }
 }
