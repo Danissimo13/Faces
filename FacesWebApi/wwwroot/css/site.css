@@ -185,10 +185,6 @@ body {
     text-align : right;
 }
 
-.nav-hidden {
-    display: block;
-}
-
 main {
     position : relative;
     display: block;
@@ -265,9 +261,9 @@ input:focus{
     color: var(--violet-color) !important;
 }
 
-@media(min-width:768px), (min-device-width:768px) {
-    #references{
-        display : block;
+@media(min-width:768px) and (min-device-width:768px) {
+    #references {
+        display: block !important;
     }
 }
 
@@ -293,10 +289,6 @@ input:focus{
         font-size: 35px;
     }
 
-    .nav-hidden {
-        display: none !important;
-    }
-
     #navbar {
         min-width: 100%;
         max-width: 100%;
@@ -309,37 +301,37 @@ input:focus{
         box-shadow: 0px -10px 15px -10px var(--violet-muffle-color) inset;
     }
 
-        #navbar #logo {
-            display: none;
-        }
+    #navbar #logo {
+        display: none;
+    }
 
-        #navbar nav a {
-            height: 100px;
-            font-size: 30px;
-        }
+    #navbar nav a {
+        height: 100px;
+        font-size: 30px;
+    }
 
-            #navbar nav a span span {
-                font-size: 35px;
-            }
+    #navbar nav a span span {
+        font-size: 35px;
+    }
 
-        #navbar #social-media {
-            position: relative;
-            bottom: 0;
-            margin-top: 10px;
-            margin-bottom: 10px;
-            justify-content: left;
-            align-items: center;
-        }
+    #navbar #social-media {
+        position: relative;
+        bottom: 0;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        justify-content: left;
+        align-items: center;
+    }
 
-            #navbar #social-media a img {
-                width: 50px;
-            }
+    #navbar #social-media a img {
+        width: 50px;
+    }
 
-            #navbar #social-media #social-label {
-                display: inline;
-                font-size: 35px;
-                margin-left: 10px;
-            }
+    #navbar #social-media #social-label {
+        display: inline;
+        font-size: 35px;
+        margin-left: 10px;
+    }
 
     #nav-switcher {
         display: block;
