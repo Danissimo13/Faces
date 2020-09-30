@@ -7,7 +7,14 @@
             body: JSON.stringify(body)
         });
 
-        const data = await response.json();
+        var data = {};
+
+        try {
+            data = await response.json();
+        }
+        catch(err) {
+            data = { errorText: err };
+        }
 
         if (response.ok == true) {
             succeed(data);
