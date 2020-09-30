@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace FacesStorage.Data.MSSql
 {
@@ -33,6 +34,11 @@ namespace FacesStorage.Data.MSSql
         public void Save()
         {
             StorageContext.SaveChanges();
+        }
+
+        public async Task SaveAsync()
+        {
+            await StorageContext.SaveChangesAsync();
         }
     }
 }
