@@ -2,6 +2,6 @@
 {
     public class DetectRequest : Request
     {
-        public RequestImage Image { get; set; }
+
     }
 }

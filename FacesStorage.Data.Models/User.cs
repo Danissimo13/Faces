@@ -6,6 +6,8 @@ namespace FacesStorage.Data.Models
     {
         public int UserId { get; set; }
 
+        public string Nickname { get; set; }
+
         public string Email { get; set; }
 
         public string Password { get; set; }
@@ -14,6 +16,5 @@ namespace FacesStorage.Data.Models
         public int RoleId { get; set; }
 
         public IList<Request> Requests { get; set; }
-        public IList<Response> Responses { get; set; }
     }
 }
