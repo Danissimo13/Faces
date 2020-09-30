@@ -20,11 +20,10 @@
     #login-form input{
         border : 2px solid var(--violet-color);
         padding-left : 5px;
-        width : 150px;
+        width : 200px;
         height : 20px;
         background-color : var(--white-color);
         color : var(--violet-color);
-        border-radius : var(--small-round);
         margin-top : 5px;
     }
 
@@ -34,9 +33,7 @@
         margin-top : 10px;
     }
 
-    #login-form #login-validate{
-        color : var(--danger-color);
-        width : 100%;
+    #login-message{
         text-align : center;
     }
 
@@ -80,7 +77,9 @@
         <h2>Log in</h2>
         <input id="email" name="email" type="email" placeholder="Email" />
         <input id="password" name="password" type="password" placeholder="Password" />
-        <span id="login-validate"></span>
+
+        <span id="login-message"></span>
+
         <input id="login-btn" class="default-btn" type="submit" value="Log in" />
     </form>
     <div id="to-register">
