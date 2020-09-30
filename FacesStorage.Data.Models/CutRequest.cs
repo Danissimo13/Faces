@@ -2,6 +2,6 @@
 {
     public class CutRequest : Request
     {
-        public RequestImage Image { get; set; }
+
     }
 }
