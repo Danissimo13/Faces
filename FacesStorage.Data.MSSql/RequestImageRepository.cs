@@ -10,7 +10,7 @@ namespace FacesStorage.Data.MSSql
         private StorageContext storageContext;
         private DbSet<RequestImage> requestImagesDbSet;
 
-        public async Task<RequestImage> Create(RequestImage image)
+        public async Task<RequestImage> CreateAsync(RequestImage image)
         {
             var entityEntry = await requestImagesDbSet.AddAsync(image);
             return entityEntry.Entity;
