@@ -1,0 +1,98 @@
+﻿<style>
+    #reg-form{
+        display : flex;
+        flex-direction : column;
+        align-items : center;
+        border: 2px solid var(--violet-color);
+        border-radius : var(--small-round);
+        margin-top : 10px;
+        min-width : 300px;
+        width : 30%;
+    }
+
+    #first-line{
+        width : 90%;
+        margin : 5px;
+        display : flex;
+        flex-direction : row;
+        align-items : center;
+        justify-content : flex-start;
+    }
+
+    #to-login{
+        color : var(--violet-color) !important;
+    }
+
+    #first-line h2{
+        margin : 0;
+        text-align : center;
+        width : 90%;
+    }
+
+    #reg-form label{
+        text-align : center;
+        color : var(--violet-color);
+        font-weight : bold;
+        margin-top : 10px;
+    }
+
+    #reg-form input {
+        border: 2px solid var(--violet-color);
+        background-color: var(--white-color);
+        color : var(--violet-color);
+        padding-left : 5px;
+        width: 90%;
+        font-size : 16px;
+        height : 30px;
+    }
+
+    #reg-message{
+        text-align : center;
+    }
+
+    #reg-form input[type=submit] {
+        padding: 0px;
+        height: 40px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    @media(max-width:768px), (max-device-width:768px) {
+        #reg-form{
+            width : 80%;
+        }
+
+        #reg-form h3{
+            font-size : 40px;
+        }
+
+        #reg-form input{
+            height : 40px;
+        }
+
+        #to-login, #reg-form input[type=submit]{
+            font-size : 30px;
+        }
+    }
+</style>
+
+
+<form id="reg-form">
+    <div id="first-line">
+        <a id="to-login" href="#login"><span class="oi oi-account-logout"></span></a>
+        <h2>Registration form</h2>
+    </div>
+
+    <label for="nick">Your nickname</label>
+    <input id="nick" type="text" placeholder="Nickname" />
+
+    <label for="email">Your email</label>
+    <input id="email" type="email" placeholder="Email" />
+
+    <label for="password">Your password</label>
+    <input id="password" type="password" placeholder="Password" />
+
+    <span id="reg-message"></span>
+
+    <input id="reg-btn" class="default-btn" type="submit" value="Create" />
+</form>
