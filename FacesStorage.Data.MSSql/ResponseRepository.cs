@@ -17,7 +17,7 @@ namespace FacesStorage.Data.MSSql
             return responseDbSet.AsQueryable();
         }
 
-        public async Task<T> GetById(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
             T response = await responseDbSet
                 .Include(r => r.Images)
@@ -27,7 +27,7 @@ namespace FacesStorage.Data.MSSql
             return response;
         }
 
-        public async Task<T> Create(T response)
+        public async Task<T> CreateAsync(T response)
         {
             var entityEntry = await responseDbSet.AddAsync(response);
             return entityEntry.Entity;

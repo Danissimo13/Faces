@@ -9,18 +9,24 @@ namespace FacesStorage.Data.MSSql
 {
     class RoleRepository : IRoleRepository
     {
-        public const string defaultUserRole = "user";
-        public const string defaultAdminRole = "admin";
-
         private StorageContext storageContext;
         private DbSet<Role> roleDbSet;
+
+        public string DefaultUserRole { get; set; }
+        public string DefaultAdminRole { get; set; }
+
+        public RoleRepository()
+        {
+            DefaultUserRole = "user";
+            DefaultAdminRole = "admin";
+        }
 
         public IQueryable<Role> All()
         {
             return roleDbSet.AsQueryable();
         }
 
-        public async Task<Role> GetById(int id)
+        public async Task<Role> GetByIdAsync(int id)
         {
             Role role = await roleDbSet.FirstOrDefaultAsync(r => r.RoleId == id);
             if (role == null) throw new KeyNotFoundException($"Not found role with id equal {id}.");
@@ -28,7 +34,7 @@ namespace FacesStorage.Data.MSSql
             return role;
         }
 
-        public async Task<Role> GetByName(string name)
+        public async Task<Role> GetByNameAsync(string name)
         {
             Role role = await roleDbSet.FirstOrDefaultAsync(r => r.Name == name);
             if (role == null) throw new KeyNotFoundException($"Not found role with name equal {name}.");
@@ -36,7 +42,7 @@ namespace FacesStorage.Data.MSSql
             return role;
         }
 
-        public async Task<Role> Create(Role role)
+        public async Task<Role> CreateAsync(Role role)
         {
             var entityEntry = await roleDbSet.AddAsync(role);
             return entityEntry.Entity;

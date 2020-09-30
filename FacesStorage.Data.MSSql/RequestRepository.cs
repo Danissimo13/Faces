@@ -18,7 +18,7 @@ namespace FacesStorage.Data.MSSql
             return requestDbSet.AsQueryable<T>();
         }
 
-        public async Task<T> GetById(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
             T request = await requestDbSet
                 .Include(r => r.User)
@@ -31,7 +31,7 @@ namespace FacesStorage.Data.MSSql
             return request;
         }
 
-        public async Task<T> Create(T request)
+        public async Task<T> CreateAsync(T request)
         {
             var entityEntry = await requestDbSet.AddAsync(request);
             return entityEntry.Entity;

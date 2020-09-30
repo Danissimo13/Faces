@@ -5,7 +5,7 @@ namespace FacesStorage.Data.Abstractions
 {
     public interface IRequestImageRepository : IRepository
     {
-        Task<RequestImage> Create(RequestImage image);
+        Task<RequestImage> CreateAsync(RequestImage image);
         RequestImage Edit(RequestImage image);
         void Delete(RequestImage image);
     }
