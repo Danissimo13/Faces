@@ -28,6 +28,9 @@
     <None Update="key.snk">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="rewrite.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   
 </Project>
