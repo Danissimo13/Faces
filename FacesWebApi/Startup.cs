@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using FacesWebApi.Options;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace FacesWebApi
 {
@@ -49,9 +50,11 @@ namespace FacesWebApi
                     };
                 });
 
+            services.AddHashService();
+            services.AddFileService();
             services.AddFaceDetectionPathSystem();
             services.AddStorageContext();
-            services.AddHashService();
+            services.AddDefaultModelsToStorage(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +64,10 @@ namespace FacesWebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            var options = new RewriteOptions()
+                .AddApacheModRewrite(env.ContentRootFileProvider, "rewrite.txt");
+            app.UseRewriter(options);
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
@@ -72,7 +79,6 @@ namespace FacesWebApi
             app.UseCors(configurePolicy => configurePolicy.AllowAnyOrigin());
 
             app.UseAuthorization();
-            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
