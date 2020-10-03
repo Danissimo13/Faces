@@ -1,30 +1,64 @@
-﻿'use strict';
+﻿$(function () {
+    var ui = {
+        $body: $('body'),
+        $menu: $('#navbar'),
+        $app: $('#app')
+    };
 
-$(function () {
-    function onroutechange(oldMenuTab, newMenuTab) {
-        if (oldMenuTab) {
-            var oldSelector = '#navbar nav a[menu=' + oldMenuTab + ']';
-            $(oldSelector).removeClass('active');
-        }
-
-        var newSelector = '#navbar nav a[menu=' + newMenuTab + ']';
-        $(newSelector).addClass('active');
-    }
-
-    function init() {
-        var router = new Router([
-            new Route('home', 'home.html', 'home', [], true),
-            new Route('acc', 'acc.html', 'acc', ['authorize.js']),
-            new Route('login', 'login.html', 'acc', ['authorize.js', 'login.js']),
-            new Route('reg', 'reg.html', 'acc', ['authorize.js', 'reg.js']),
-            new Route('about', 'about.html', 'about'),
-            new Route('theme', 'theme.html', 'theme', ['themes.js']),
-        ]);
-
-        router.onroutechange = onroutechange;
-
-        router.init();
-    }
+    let config = {};
 
     init();
+    window.navTo = navTo; 
+
+    function init() {
+        $.getJSON('/data/nav-config.json', function (data) {
+            config = data;
+            var page = (document.location.pathname.substr(1) + document.location.search) || config.mainPage;
+
+            console.log(page);
+            navTo(page);
+            bindHandlers();
+        });
+    }
+
+    function bindHandlers() {
+        ui.$body.on('click', 'a[link="ajax"]', navigate);
+        window.onpopstate = popState;
+    }
+
+    function navigate(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        var page = $(this).attr('href');
+        navTo(page);
+    }
+
+    function navTo(page) {
+        loadPage(page);
+        history.pushState({ page: page }, '', page);
+    }
+
+    function popState(e) {
+        var page = (e.state && e.state.page) || config.mainPage;
+        console.log(e.state);
+        loadPage(page);
+    }
+
+    function loadPage(page) {
+        var parsedPage = page.substr(0, page.indexOf('?'));
+        if (parsedPage)
+            page = parsedPage
+
+        var url = 'views/' + page + '.html';
+        var pageTitle = config.pages[page].title;
+        var menu = config.pages[page].menu;
+
+        $.get(url, function (html) {
+            document.title = pageTitle + ' | ' + config.siteTitle;
+            ui.$menu.find('a').removeClass('active');
+            ui.$menu.find('a[menu="' + menu + '"]').addClass('active');
+            ui.$app.html(html);
+        });
+    }
 });
