@@ -56,14 +56,14 @@ namespace FacesStorage.Data.MSSql
 
             modelBuilder.Entity<Request>(etb =>
             {
-                etb.HasDiscriminator();
                 etb.HasKey(e => e.RequestId);
-                etb.Property(e => e.FromImageId);
                 etb.Property(e => e.ResponseId);
                 etb.Property(e => e.UserId);
+                etb.Property(e => e.Discriminator);
+                etb.HasDiscriminator(e => e.Discriminator);
                 etb.HasOne(e => e.Response).WithOne().HasForeignKey<Request>(e => e.ResponseId);
-                etb.HasOne(e => e.User).WithMany().HasForeignKey(e => e.UserId);
-                etb.HasOne(e => e.FromImage).WithOne().HasForeignKey<Request>(e => e.FromImageId).OnDelete(DeleteBehavior.NoAction);
+                etb.HasOne(e => e.User).WithMany(e => e.Requests).HasForeignKey(e => e.UserId);
+                etb.HasMany(e => e.Images).WithOne(i => i.Request).HasForeignKey(e => e.RequestId).OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<DetectRequest>(etb =>
@@ -79,8 +79,6 @@ namespace FacesStorage.Data.MSSql
             modelBuilder.Entity<SwapRequest>(etb =>
             {
                 etb.HasBaseType(typeof(Request));
-                etb.Property(e => e.ToImageId);
-                etb.HasOne(e => e.ToImage).WithOne().HasForeignKey<SwapRequest>(e => e.ToImageId).OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<RequestImage>(etb =>
@@ -89,14 +87,15 @@ namespace FacesStorage.Data.MSSql
                 etb.Property(e => e.ImageId);
                 etb.Property(e => e.ImageName);
                 etb.Property(e => e.RequestId);
-                etb.HasOne(e => e.Request).WithOne().HasForeignKey<RequestImage>(e => e.RequestId).OnDelete(DeleteBehavior.NoAction);
+                etb.HasOne(e => e.Request).WithMany(r => r.Images).HasForeignKey(e => e.RequestId).OnDelete(DeleteBehavior.NoAction);
             });
 
             modelBuilder.Entity<Response>(etb =>
             {
-                etb.HasDiscriminator();
                 etb.HasKey(e => e.ResponseId);
                 etb.Property(e => e.ResponseId);
+                etb.Property(e => e.Discriminator);
+                etb.HasDiscriminator(e => e.Discriminator);
                 etb.HasMany(e => e.Images).WithOne(e => e.Response).HasForeignKey(e => e.ResponseId);
             });
 
