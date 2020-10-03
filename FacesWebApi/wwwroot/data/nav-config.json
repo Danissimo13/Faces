@@ -1,0 +1,32 @@
+{
+  "siteTitle": "Faces",
+  "mainPage": "home",
+  "pages": {
+    "home": {
+      "title": "Home",
+      "menu": "home",
+      "inSitemap": true
+    },
+    "acc": {
+      "title": "Acc",
+      "menu": "acc"
+    },
+    "login": {
+      "title": "Login",
+      "menu": "acc"
+    },
+    "reg": {
+      "title": "Registration",
+      "menu": "acc"
+    },
+    "about": {
+      "title": "About",
+      "menu": "about"
+    },
+    "theme": {
+      "title": "Themes",
+      "menu": "theme",
+      "inSitemap": true
+    }
+  }
+}
