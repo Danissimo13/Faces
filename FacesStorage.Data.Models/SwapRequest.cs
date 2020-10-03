@@ -2,7 +2,6 @@
 {
     public class SwapRequest : Request
     {
-        public RequestImage ToImage { get; set; }
-        public int ToImageId { get; set; }
+
     }
 }
