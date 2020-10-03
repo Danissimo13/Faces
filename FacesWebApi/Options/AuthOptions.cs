@@ -7,7 +7,7 @@ namespace FacesWebApi.Options
     {
         public const string ISSUER = "FacesCorporation";
         public const string AUDIENCE = "FacesApp";
-        public const int LIFETIME = 60;
+        public const int LIFETIME = 60 * 24;
 
         private static readonly byte[] KEY;
 
