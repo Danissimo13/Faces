@@ -63,7 +63,7 @@ namespace FacesStorage.Data.MSSql
                 etb.HasDiscriminator(e => e.Discriminator);
                 etb.HasOne(e => e.Response).WithOne().HasForeignKey<Request>(e => e.ResponseId);
                 etb.HasOne(e => e.User).WithMany(e => e.Requests).HasForeignKey(e => e.UserId);
-                etb.HasMany(e => e.Images).WithOne(i => i.Request).HasForeignKey(e => e.RequestId).OnDelete(DeleteBehavior.NoAction);
+                etb.HasMany(e => e.Images).WithOne(i => i.Request).HasForeignKey(e => e.RequestId);
             });
 
             modelBuilder.Entity<DetectRequest>(etb =>
@@ -87,7 +87,7 @@ namespace FacesStorage.Data.MSSql
                 etb.Property(e => e.ImageId);
                 etb.Property(e => e.ImageName);
                 etb.Property(e => e.RequestId);
-                etb.HasOne(e => e.Request).WithMany(r => r.Images).HasForeignKey(e => e.RequestId).OnDelete(DeleteBehavior.NoAction);
+                etb.HasOne(e => e.Request).WithMany(r => r.Images).HasForeignKey(e => e.RequestId);
             });
 
             modelBuilder.Entity<Response>(etb =>
