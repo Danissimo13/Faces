@@ -1,11 +1,19 @@
 ﻿<style>
-    #theme-page {
+    #theme-page h1{
+       margin : 10px;
+    }
+
+    #theme-page h3{
+        margin : 5px;
+    }
+
+    #themes, #light-themes {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
     }
 
-    #theme-page .theme {
+    #themes .theme, #light-themes .theme {
         display: flex;
         cursor: pointer;
         flex-direction: row;
@@ -17,33 +25,47 @@
         border-radius: var(--medium-round);
         font-weight: bold;
         transition: all 500ms;
-        margin: 10px;
+        margin-left: 10px;
     }
 
-    #theme-page .theme:hover {
+    #themes .theme:hover, #light-themes .theme:hover {
         background-color: var(--violet-color);
         color: var(--white-color);
     }
 
-    #theme-page .theme.active {
+    #themes .theme.active, #light-themes .theme.active {
         background-color: var(--white-color);
         color: var(--violet-color);
     }
 
     @media(max-width:768px), (max-device-width:768px){
-        #theme-page .theme{
-            width : 100px;
-            height : 100px;
+        #themes .theme {
+            width: 100px;
+            height: 100px;
         }
     }
 </style>
 
-<h1>All available color themes on the site</h1>
+<script src="js/themes.js"></script>
+
 <div id="theme-page">
-    <div class="theme" id="green"><span>Green</span></div>
-    <div class="theme" id="purple"><span>Purp</span></div>
-    <div class="theme" id="red">Red</div>
-    <div class="theme" id="blue">Blue</div>
-    <div class="theme" id="orange">Orang</div>
-    <div class="theme" id="multi">Multi</div>
+    <h1 class="text-glow">All available color themes on the site</h1>
+    <h3>Dark themes</h3>
+    <div id="themes">
+        <div class="theme" id="green">Green</div>
+        <div class="theme" id="purple">Purp</div>
+        <div class="theme" id="red">Red</div>
+        <div class="theme" id="blue">Blue</div>
+        <div class="theme" id="orange">Orang</div>
+        <div class="theme" id="multi">Multi</div>
+    </div>
+    <h3>Light themes</h3>
+    <div id="light-themes">
+        <div class="theme" id="light-green">Green</div>
+        <div class="theme" id="light-purple">Purp</div>
+        <div class="theme" id="light-red">Red</div>
+        <div class="theme" id="light-blue">Blue</div>
+        <div class="theme" id="light-orange">Orang</div>
+        <div class="theme" id="light-multi">Multi</div>
+    </div>
 </div>
