@@ -1,9 +1,21 @@
 ﻿$(function () {
-    if (!localStorage.getItem('token') && (window.location.hash != '#login') && (window.location.hash != '#reg')) {
-        window.location.hash = '#login';
+    var page = window.location.pathname.substr(1);
+
+    if (!sessionStorage.getItem('token') && ((page != 'login') && (page != 'reg'))) {
+        navTo('login');
     }
 
-    if (localStorage.getItem('token') && ((window.location.hash == '#login') || (window.location.hash == '#reg'))) {
-        window.location.hash = '#acc';
+    if (sessionStorage.getItem('token') && ((page == 'login') || (page == 'reg'))) {
+        navTo('acc');
     }
+
+    window.parseJwt = function parseJwt(token) {
+        var base64Url = token.split('.')[1];
+        var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        var jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
+    };
 });
