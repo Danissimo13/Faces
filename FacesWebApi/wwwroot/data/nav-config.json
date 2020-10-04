@@ -25,8 +25,11 @@
     },
     "theme": {
       "title": "Themes",
-      "menu": "theme",
-      "inSitemap": true
+      "menu": "theme"
+    },
+    "404": {
+      "title": "404",
+      "menu": "home"
     }
   }
 }
