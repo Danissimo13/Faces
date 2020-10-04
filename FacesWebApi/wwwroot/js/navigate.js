@@ -35,7 +35,16 @@
     }
 
     function navTo(page) {
-        loadPage(page);
+        var parsedPage = page.substr(0, page.indexOf('?'));
+        if (parsedPage) {
+            if (!config.pages[parsedPage]) parsedPage = '404';
+            loadPage(parsedPage);
+        }
+        else {
+            if (!config.pages[page]) page = '404';
+            loadPage(page);
+        }
+
         history.pushState({ page: page }, '', page);
     }
 
@@ -46,10 +55,6 @@
     }
 
     function loadPage(page) {
-        var parsedPage = page.substr(0, page.indexOf('?'));
-        if (parsedPage)
-            page = parsedPage
-
         var url = 'views/' + page + '.html';
         var pageTitle = config.pages[page].title;
         var menu = config.pages[page].menu;
