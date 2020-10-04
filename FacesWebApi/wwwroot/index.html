@@ -2,26 +2,26 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Faces</title>
     <link rel="stylesheet" href="css/site.css" />
     <link rel="stylesheet" href="lib/open-iconic/font/css/open-iconic-bootstrap.min.css" />
 </head>
 <body>
     <aside id="navbar">
-        <a href="#home"><img id="logo" src="img/design/logo.png" /></a>
+        <a href="home" link="ajax"><img class="change-color" id="logo" src="img/design/logo.png" /></a>
         <div id="nav-switcher"><span class="oi oi-menu"></span></div>
         <div id="references">
             <nav>
-                <a href="#home" menu="home"><span class="oi oi-browser"> <span>Home</span></span></a>
-                <a href="#acc" menu="acc"><span class="oi oi-person"> <span>Profile</span></span> </a>
-                <a href="#about" menu="about"><span class="oi oi-globe"> <span>About</span></span> </a>
-                <a href="#theme" menu="theme"><span class="oi oi-droplet"> <span>Theme</span></span></a>
+                <a href="home" link="ajax" menu="home"><span class="oi oi-browser"> <span>Home</span></span></a>
+                <a href="acc" link="ajax" menu="acc"><span class="oi oi-person"> <span>Profile</span></span> </a>
+                <a href="about" link="ajax" menu="about"><span class="oi oi-globe"> <span>About</span></span> </a>
+                <a href="theme" link="ajax" menu="theme"><span class="oi oi-droplet"> <span>Theme</span></span></a>
             </nav>
             <div id="social-media">
                 <span id="social-label">Social media:</span>
-                <a href="https://instagram.com/faces.faceswap/"><img src="svg/design/instagram.svg" /></a>
-                <a href="https://vk.com/public198818550"><img src="svg/design/vk.svg" /></a>
-                <a href="https://twitter.com/faces88342934"><img src="svg/design/twitter.svg" /></a>
+                <a target="_blank" href="https://instagram.com/faces.faceswap/"><img src="svg/design/instagram.svg" /></a>
+                <a target="_blank" href="https://vk.com/public198818550"><img src="svg/design/vk.svg" /></a>
+                <a target="_blank" href="https://twitter.com/faces88342934"><img src="svg/design/twitter.svg" /></a>
             </div>
         </div>
     </aside>
@@ -36,15 +36,12 @@
     <footer>
         <script src="lib/jquery/jquery.min.js"></script>
         <script src="lib/jquery-cookie/jquery.cookie.min.js"></script>
-        <script src="js/navbar.js"></script>
-        <script src="js/route.js"></script>
-        <script src="js/router.js"></script>
         <script src="js/navigate.js"></script>
+        <script src="js/navbar.js"></script>
         <script src="js/api.js"></script>
         <script src="js/theme.js"></script>
-        <div id="scripts">
-
-        </div>
+        <script src="js/images.js"></script>
+        <script src="js/validation.js"></script>
     </footer>
 </body>
 </html>
