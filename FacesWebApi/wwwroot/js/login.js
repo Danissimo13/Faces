@@ -19,21 +19,17 @@
     });
 
     function succeed_req(data) {
-        localStorage.setItem('token', data.access_token);
+        sessionStorage.setItem('token', data.access_token);
 
-        login_message.text(data.message);
         login_message.removeClass('error');
         login_message.addClass('succeed');
+        login_message.text('Succeed login.');
 
-        setTimeout(() => window.location.hash = 'acc', 2000);
+        setTimeout(() => navTo('acc'), 2000);
     }
 
     function error_req(data) {
-        console.log("Error: ", data.errorText);
-
-        login_message.text(data.errorText);
-        login_message.removeClass('succeed');
-        login_message.addClass('error');
+        displayModelErrors(data, login_message);
     }
 
     function validate_login_form() {
@@ -43,7 +39,7 @@
         if (!password_inp.val()) password_inp.addClass('non-valid');
         else password_inp.removeClass('non-valid');
 
-        if (login_inp.hasClass('non-valid') || password_inp.hasClass('non-valid')) return false;
+        if (!login_inp.val() || !password_inp.val()) return false;
 
         return true;
     }
