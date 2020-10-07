@@ -50,7 +50,7 @@ namespace FacesStorage.Data.MSSql
                 etb.Property(e => e.NewsId);
                 etb.Property(e => e.Topic);
                 etb.Property(e => e.Body);
-                etb.Property(e => e.ImagePath);
+                etb.Property(e => e.ImageName);
                 etb.Property(e => e.PublishDate);
             });
 
