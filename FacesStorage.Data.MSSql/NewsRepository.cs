@@ -17,10 +17,19 @@ namespace FacesStorage.Data.MSSql
             return dbSet.AsQueryable<News>();
         }
 
-        public async Task<News> GetByIdAsync(int id)
+        public async Task<News> GetAsync(int id)
         {
             News news = await dbSet.FirstOrDefaultAsync(n => n.NewsId == id);
             if (news == null) throw new KeyNotFoundException($"Not found news with id equal {id}.");
+
+            return news;
+        }
+
+
+        public async Task<News> GetLastAsync()
+        {
+            News news = await dbSet.OrderByDescending(n => n.NewsId).LastOrDefaultAsync();
+            if (news == null) throw new KeyNotFoundException($"Not found last news.");
 
             return news;
         }

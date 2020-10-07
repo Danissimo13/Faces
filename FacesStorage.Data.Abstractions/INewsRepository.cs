@@ -7,7 +7,8 @@ namespace FacesStorage.Data.Abstractions
     public interface INewsRepository : IRepository
     {
         IQueryable<News> All();
-        Task<News> GetByIdAsync(int id);
+        Task<News> GetAsync(int id);
+        Task<News> GetLastAsync();
         Task<News> CreateAsync(News news);
         News Edit(News news);
         void Delete(News news);
