@@ -13,12 +13,19 @@ namespace FacesWebApi.Services.Implemetations
         public string LocalResponseImagesPath { get; set; }
         public string GlobalResponseImagesPath { get; set; }
 
+        public string LocalNewsImagesPath { get; set; }
+        public string GlobalNewsImagesPath { get; set; }
+
         public FileService(IWebHostEnvironment environment)
         {
-            GlobalRequestImagesPath = Path.Combine(environment.WebRootPath, "faces", "requests");
             LocalRequestImagesPath = Path.Combine("faces", "requests");
-            GlobalResponseImagesPath = Path.Combine(environment.WebRootPath, "faces", "responses");
+            GlobalRequestImagesPath = Path.Combine(environment.WebRootPath, LocalRequestImagesPath);
+
             LocalResponseImagesPath = Path.Combine("faces", "responses");
+            GlobalResponseImagesPath = Path.Combine(environment.WebRootPath, LocalResponseImagesPath);
+
+            LocalNewsImagesPath = Path.Combine("img", "news");
+            GlobalNewsImagesPath = Path.Combine(environment.WebRootPath, LocalNewsImagesPath);
         }
 
         public async Task<string> SaveFileAsync(Stream stream, string path)
@@ -29,6 +36,11 @@ namespace FacesWebApi.Services.Implemetations
             }
 
             return path;
+        }
+
+        public void DeleteFile(string path)
+        {
+            if (File.Exists(path)) File.Delete(path);
         }
     }
 }
