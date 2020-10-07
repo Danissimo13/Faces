@@ -1,0 +1,64 @@
+﻿<style>
+    #news-page{
+        display : flex;
+        flex-direction : column;
+    }
+
+    #news-topic{
+        margin : 5px;
+        color : var(--violet-color);
+    }
+
+    #news-img-box{
+        position : relative;
+        display : block;
+        float : left;
+        margin-right: 10px;
+        width : 500px;
+        height : 300px;
+        border-radius : var(--small-round);
+        overflow : hidden;
+    }
+
+    #news-img {
+        position : absolute;
+        top : 0;
+        left : 0;
+        width: 100%;
+        height: 100%;
+        transition: all 1s ease-out;
+    }
+
+    #news-img-box:hover #news-img {
+        width: 125%;
+        height: 125%;
+        left: -12.5%;
+        top: -12.5%;
+    }
+
+    #news-body{
+        font-size : 18px;
+    }
+
+    #body-line{
+        width : 100%;
+    }
+
+    #news-page h4{
+        align-self : flex-end;
+        margin : 5px;
+    }
+</style>
+
+<script src="js/news.js"></script>
+
+<div id="news-page">
+    <h1 class="text-glow" id="news-topic"></h1>
+    <div id="body-line">
+        <div id="news-img-box">
+            <img class="inverted" id="news-img" src="" />
+        </div>
+        <div id="news-body"></div>
+    </div>
+    <h4>Publish date: <span id="news-publish-date"></span> <span class="oi oi-calendar"></span></h4>
+</div>
