@@ -10,7 +10,7 @@ namespace FacesStorage.Data.Models
 
         public string Body { get; set; }
 
-        public string ImagePath { get; set; }
+        public string ImageName { get; set; }
 
         public DateTime PublishDate { get; set; }
     }
