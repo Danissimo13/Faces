@@ -27,6 +27,10 @@
       "title": "Themes",
       "menu": "theme"
     },
+    "news": {
+      "title": "News",
+      "menu": "home"
+    },
     "404": {
       "title": "404",
       "menu": "home"
