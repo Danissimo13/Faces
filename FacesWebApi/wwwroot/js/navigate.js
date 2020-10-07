@@ -8,7 +8,8 @@
     let config = {};
 
     init();
-    window.navTo = navTo; 
+    window.navTo = navTo;
+    window.notFound = () => loadPage('404');
 
     function init() {
         $.getJSON('/data/nav-config.json', function (data) {
@@ -36,14 +37,8 @@
 
     function navTo(page) {
         var parsedPage = page.substr(0, page.indexOf('?'));
-        if (parsedPage) {
-            if (!config.pages[parsedPage]) parsedPage = '404';
-            loadPage(parsedPage);
-        }
-        else {
-            if (!config.pages[page]) page = '404';
-            loadPage(page);
-        }
+        if (parsedPage) loadPage(parsedPage);
+        else loadPage(page);
 
         history.pushState({ page: page }, '', page);
     }
@@ -55,6 +50,8 @@
     }
 
     function loadPage(page) {
+        if (!config.pages[page]) page = '404';
+
         var url = 'views/' + page + '.html';
         var pageTitle = config.pages[page].title;
         var menu = config.pages[page].menu;
