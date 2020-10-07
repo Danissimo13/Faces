@@ -8,10 +8,44 @@
         margin : 10px;
     }
 
-    #last-news{
+    #last-news {
+        display: flex;
+        flex-direction : column;
+        width: 100%;
+        text-decoration : none;
+        border-bottom: 2px solid var(--violet-color);
+        border-top: 2px solid var(--violet-color);
+    }
+
+    #last-news h4{
+        margin : 5px;
+    }
+
+    #last-news-topic{
+        margin : 5px;
+        margin-left : 15px;
+    }
+
+    #news-img-box {
+        display : flex;
+        flex-direction : row;
+        justify-content : center;
+        align-items : center;
+        border-radius : var(--small-round);
+        overflow: hidden;
+        width: 100%;
         height : 300px;
-        width : 100%;
-        border-bottom : 2px solid var(--violet-color);
+        margin: 5px auto 10px;
+    }
+
+    #last-news img {
+        display: block;
+        width: 100%;
+        transition : all 1s ease-out;
+    }
+
+    #news-img-box:hover img {
+        width: 110%;
     }
 
     #actions-label{
@@ -41,12 +75,17 @@
     }
 </style>
 
+<script src="js/home.js"></script>
+
 <div id="home-page">
     <h1 class="text-glow">Faces web site</h1>
-    <div id="last-news">
-        <img src=""/>
-        <p></p>
-    </div>
+    <a href="news?id=" link="ajax" id="last-news">
+        <h2 id="last-news-topic"></h2>
+        <div id="news-img-box">
+            <img class="inverted" src="" />
+        </div>
+        <h4>Publish date: <span id="news-publish-date"></span> <span class="oi oi-calendar"></span></h4>
+    </a>
     <div id="actions-label">Actions:</div>
     <div id="actions">
         <a href="#detect" class="default-btn"><span class="oi oi-magnifying-glass"> </span>&nbsp;Detect all faces</a>
