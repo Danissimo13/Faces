@@ -45,8 +45,10 @@
 
     function popState(e) {
         var page = (e.state && e.state.page) || config.mainPage;
-        console.log(e.state);
-        loadPage(page);
+
+        var parsedPage = page.substr(0, page.indexOf('?'));
+        if (parsedPage) loadPage(parsedPage);
+        else loadPage(page);
     }
 
     function loadPage(page) {
