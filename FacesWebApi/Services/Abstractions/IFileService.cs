@@ -11,6 +11,10 @@ namespace FacesWebApi.Services.Abstractions
         public string LocalResponseImagesPath { get; set; }
         public string GlobalResponseImagesPath { get; set; }
 
+        public string LocalNewsImagesPath { get; set; }
+        public string GlobalNewsImagesPath { get; set; }
+
         Task<string> SaveFileAsync(Stream stream, string path);
+        void DeleteFile(string path);
     }
 }
