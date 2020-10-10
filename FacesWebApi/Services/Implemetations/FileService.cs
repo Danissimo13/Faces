@@ -1,5 +1,7 @@
 ﻿using FacesWebApi.Services.Abstractions;
 using Microsoft.AspNetCore.Hosting;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -33,6 +35,31 @@ namespace FacesWebApi.Services.Implemetations
             using(FileStream writer = new FileStream(path, FileMode.Create))
             {
                 await stream.CopyToAsync(writer);
+            }
+
+            return path;
+        }
+
+        public async Task<string> SaveFileAsync(byte[] buffer, string path)
+        {
+            using (FileStream writer = new FileStream(path, FileMode.Create))
+            {
+                using (MemoryStream reader = new MemoryStream(buffer))
+                {
+                    await reader.CopyToAsync(writer);
+                }
+
+            }
+
+            return path;
+        }
+
+
+        public string SaveFile(Bitmap bitmap, string path)
+        {
+            using (FileStream writer = new FileStream(path, FileMode.Create))
+            {
+                bitmap.Save(writer, ImageFormat.Jpeg);
             }
 
             return path;
