@@ -7,43 +7,44 @@ using System.Threading.Tasks;
 
 namespace FacesStorage.Data.MSSql
 {
-    public class RequestRepository<T> : IRequestRepository<T> where T : Request
+    public class RequestRepository : IRequestRepository
     {
         private StorageContext storageContext;
-        private DbSet<T> requestDbSet;
+        private DbSet<Request> requestDbSet;
         private DbSet<RequestImage> requestImagesDbSet;
 
-        public IQueryable<T> All()
+        public IQueryable<TRequest> All<TRequest>() where TRequest : Request
         {
-            return requestDbSet.AsQueryable<T>();
+            var requestsByTypes = this.storageContext.Set<TRequest>();
+            return requestsByTypes.AsQueryable<TRequest>();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<TRequest> GetByIdAsync<TRequest>(int id) where TRequest : Request
         {
-            T request = await requestDbSet
+            var requestsByTypes = this.storageContext.Set<TRequest>();
+            TRequest request = await requestsByTypes
                 .Include(r => r.User)
                 .Include(r => r.Response)
+                .Include(r => r.Images)
                 .FirstOrDefaultAsync(r => r.RequestId == id);
             if (request == null) throw new KeyNotFoundException($"Not found request with id equal {id}.");
-
-            await requestImagesDbSet.Where(i => i.RequestId == request.RequestId).LoadAsync(); // loading associated images
 
             return request;
         }
 
-        public async Task<T> CreateAsync(T request)
+        public async Task<Request> CreateAsync(Request request)
         {
             var entityEntry = await requestDbSet.AddAsync(request);
             return entityEntry.Entity;
         }
 
-        public T Edit(T request)
+        public Request Edit(Request request)
         {
             var entityEntry = requestDbSet.Update(request);
             return entityEntry.Entity;
         }
 
-        public void Delete(T request)
+        public void Delete(Request request)
         {
             requestDbSet.Remove(request);
         }
@@ -51,7 +52,7 @@ namespace FacesStorage.Data.MSSql
         public void SetStorageContext(IStorageContext storageContext)
         {
             this.storageContext = storageContext as StorageContext;
-            this.requestDbSet = this.storageContext.Set<T>();
+            this.requestDbSet = this.storageContext.Set<Request>();
             this.requestImagesDbSet = this.storageContext.Set<RequestImage>();
         }
     }

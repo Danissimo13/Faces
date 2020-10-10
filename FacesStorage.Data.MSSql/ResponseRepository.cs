@@ -7,19 +7,21 @@ using System.Threading.Tasks;
 
 namespace FacesStorage.Data.MSSql
 {
-    class ResponseRepository<T> : IResponseRepository<T> where T : Response
+    class ResponseRepository : IResponseRepository
     {
         private StorageContext storageContext;
-        private DbSet<T> responseDbSet;
+        private DbSet<Response> responseDbSet;
 
-        public IQueryable<T> All()
+        public IQueryable<TResponse> All<TResponse>() where TResponse : Response
         {
-            return responseDbSet.AsQueryable();
+            var responsesByType = storageContext.Set<TResponse>();
+            return responsesByType.AsQueryable();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<TResponse> GetByIdAsync<TResponse>(int id) where TResponse : Response
         {
-            T response = await responseDbSet
+            var responsesByType = storageContext.Set<TResponse>();
+            TResponse response = await responsesByType
                 .Include(r => r.Images)
                 .FirstOrDefaultAsync(r => r.ResponseId == id);
             if(response == null) throw new KeyNotFoundException($"Not found response with id equal {id}.");
@@ -27,19 +29,19 @@ namespace FacesStorage.Data.MSSql
             return response;
         }
 
-        public async Task<T> CreateAsync(T response)
+        public async Task<Response> CreateAsync(Response response)
         {
             var entityEntry = await responseDbSet.AddAsync(response);
             return entityEntry.Entity;
         }
 
-        public T Edit(T response)
+        public Response Edit(Response response)
         {
             var entityEntry = responseDbSet.Update(response);
             return entityEntry.Entity;
         }
 
-        public void Delete(T response)
+        public void Delete(Response response)
         {
             responseDbSet.Remove(response);
         }
@@ -47,7 +49,7 @@ namespace FacesStorage.Data.MSSql
         public void SetStorageContext(IStorageContext storageContext)
         {
             this.storageContext = storageContext as StorageContext;
-            this.responseDbSet = this.storageContext.Set<T>();
+            this.responseDbSet = this.storageContext.Set<Response>();
         }
     }
 }
