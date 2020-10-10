@@ -54,6 +54,7 @@ namespace FacesWebApi
             services.AddFileService();
             services.AddFaceDetectionPathSystem();
             services.AddStorageContext();
+            services.AddFaceService();
             services.AddDefaultModelsToStorage(Configuration);
         }
 

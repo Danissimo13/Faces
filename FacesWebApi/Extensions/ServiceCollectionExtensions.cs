@@ -83,5 +83,12 @@ namespace FacesWebApi.Extensions
 
             return services;
         }
+
+        public static IServiceCollection AddFaceService(this IServiceCollection services)
+        {
+            services.AddScoped<IFaceService, FaceService>();
+
+            return services;
+        }
     }
 }
