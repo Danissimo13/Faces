@@ -1,53 +1,53 @@
 ﻿<style>
-    #reg-form{
-        display : flex;
-        flex-direction : column;
-        align-items : center;
+    #reg-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         border: 2px solid var(--violet-color);
-        border-radius : var(--small-round);
-        margin-top : 10px;
-        min-width : 300px;
-        width : 30%;
+        border-radius: var(--small-round);
+        margin-top: 10px;
+        min-width: 300px;
+        width: 30%;
     }
 
-    #first-line{
-        width : 90%;
-        margin : 5px;
-        display : flex;
-        flex-direction : row;
-        align-items : center;
-        justify-content : flex-start;
+    #first-line {
+        width: 90%;
+        margin: 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
     }
 
-    #to-login{
-        color : var(--violet-color) !important;
+    #to-login {
+        color: var(--violet-color) !important;
     }
 
-    #first-line h2{
-        margin : 0;
-        text-align : center;
-        width : 90%;
+    #first-line h2 {
+        margin: 0;
+        text-align: center;
+        width: 90%;
     }
 
-    #reg-form label{
-        text-align : center;
-        color : var(--violet-color);
-        font-weight : bold;
-        margin-top : 10px;
+    #reg-form label {
+        text-align: center;
+        color: var(--violet-color);
+        font-weight: bold;
+        margin-top: 10px;
     }
 
     #reg-form input {
         border: 2px solid var(--violet-color);
         background-color: var(--white-color);
-        color : var(--violet-color);
-        padding-left : 5px;
+        color: var(--violet-color);
+        padding-left: 5px;
         width: 90%;
-        font-size : 16px;
-        height : 30px;
+        font-size: 16px;
+        height: 30px;
     }
 
-    #reg-message{
-        text-align : center;
+    #reg-message {
+        text-align: center;
     }
 
     #reg-form input[type=submit] {
@@ -58,28 +58,30 @@
     }
 
     @media(max-width:768px), (max-device-width:768px) {
-        #reg-form{
-            width : 80%;
+        #reg-form {
+            width: 80%;
         }
 
-        #reg-form h3{
-            font-size : 40px;
+        #reg-form h3 {
+            font-size: 40px;
         }
 
-        #reg-form input{
-            height : 40px;
+        #reg-form input {
+            height: 40px;
         }
 
-        #to-login, #reg-form input[type=submit]{
-            font-size : 30px;
+        #to-login, #reg-form input[type=submit] {
+            font-size: 30px;
         }
     }
 </style>
 
+<script src="js/authorize.js"></script>
+<script src="js/reg.js"></script>
 
 <form id="reg-form">
     <div id="first-line">
-        <a id="to-login" href="#login"><span class="oi oi-account-logout"></span></a>
+        <a id="to-login" link="ajax" href="login"><span class="oi oi-account-logout"></span></a>
         <h2>Registration form</h2>
     </div>
 
