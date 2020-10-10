@@ -431,18 +431,51 @@ input.non-valid{
     border: 2px solid var(--violet-color);
 }
 
-#scoped-image .close-scoped-image {
-    position: absolute;
-    left: calc(100% - 15px);
-    top: -15px;
-    font-size: 30px;
-    -webkit-text-stroke: 1px white;
-}
-
 #scoped-image img{
     width : 90%;
     margin : 5%;
     border-radius : var(--small-round);
+}
+
+.file .btn-tertiary {
+    color: var(--violet-color);
+    padding: 0;
+    line-height: 40px;
+    width: 300px;
+    margin: auto;
+    display: block;
+    border: 2px solid var(--violet-color);
+}
+
+.file .btn-tertiary:hover, .example-2 .btn-tertiary:focus {
+    color: var(--violet-color);
+    border-color: var(--violet-color)
+}
+
+.file .input-file {
+    width: .1px;
+    height: .1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1
+}
+
+.file .input-file + .js-labelFile {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 10px;
+    cursor: pointer
+}
+
+.file .input-file + .js-labelFile .icon:before {
+    content: "\f093"
+}
+
+.file .input-file + .js-labelFile.has-file .icon:before {
+    content: "\f00c";
+    color: #5AAC7B
 }
 
 @media(min-width:768px) and (min-device-width:768px) {
@@ -527,5 +560,10 @@ input.non-valid{
 
     .default-btn{
         font-size : 25px;
+    }
+
+    .file .btn-tertiary {
+        width : 400px;
+        height : 50px;
     }
 }
