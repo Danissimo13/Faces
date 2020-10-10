@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 
 namespace FacesStorage.Data.Abstractions
 {
-    public interface IRequestRepository<T> : IRepository where T : Request
+    public interface IRequestRepository : IRepository
     {
-        public IQueryable<T> All();
-        public Task<T> GetByIdAsync(int id);
-        public Task<T> CreateAsync(T request);
-        public T Edit(T request);
-        public void Delete(T request);
+        public IQueryable<TRequest> All<TRequest>() where TRequest : Request;
+        public Task<TRequest> GetByIdAsync<TRequest>(int id) where TRequest : Request;
+        public Task<Request> CreateAsync(Request request);
+        public Request Edit(Request request);
+        public void Delete(Request request);
     }
 }
