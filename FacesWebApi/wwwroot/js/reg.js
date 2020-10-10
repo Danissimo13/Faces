@@ -21,17 +21,13 @@
     });
 
     function succeed_req(data) {
-        reg_message.text(data.message);
         reg_message.removeClass('error');
         reg_message.addClass('succeed');
+        reg_message.text('The user was created successfully.');
     }
 
     function error_req(data) {
-        console.log("Error: ", data.errorText);
-
-        reg_message.text(data.errorText);
-        reg_message.removeClass('succeed');
-        reg_message.addClass('error');
+        displayModelErrors(data, reg_message);
     }
 
     function validate_reg_form() {
@@ -44,10 +40,7 @@
         if (!password_inp.val()) password_inp.addClass('non-valid');
         else password_inp.removeClass('non-valid');
 
-        if (nick_inp.hasClass('non-valid') ||
-            email_inp.hasClass('non-valid') ||
-            password_inp.hasClass('non-valid')) return false;
-
+        if (!nick_inp.val() || !email_inp.val() || !password_inp.val()) return false;
         return true;
     }
 });
