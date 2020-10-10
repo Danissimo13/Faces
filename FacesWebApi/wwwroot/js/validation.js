@@ -3,18 +3,18 @@
 
     try {
         if (modelState.errors) {
-            for (var key of modelState.errors) {
-                for (var error of key) {
-                    console.error('Error: ' + error);
-                    errors += error + '</br>';
+            for (var key in modelState.errors) {
+                for (var error in modelState.errors[key]) {
+                    console.error('Error: ' + modelState.errors[key][error]);
+                    errors += modelState.errors[key][error] + '</br>';
                 }
             }
         }
         else {
-            for (var kay of modelState) {
-                for (var error of key) {
-                    console.error('Error: ' + error);
-                    errors += error + '</br>';
+            for (var key in modelState) {
+                for (var error in modelState[key]) {
+                    console.error('Error: ' + modelState[key][error]);
+                    errors += modelState[key][error] + '</br>';
                 }
             }
         }
@@ -26,6 +26,6 @@
         }
     }
     catch (err) {
-        console.error(err);
+        console.error(modelState);
     }
 }
