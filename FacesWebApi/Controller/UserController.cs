@@ -59,7 +59,7 @@ namespace FacesWebApi.Controller
                     optionsBuilder.WithPassword = false;
                 });
 
-                var userModel = new
+                var responseModel = new
                 {
                     UserId = user.UserId,
                     Nickname = user.Nickname,
@@ -89,11 +89,11 @@ namespace FacesWebApi.Controller
                         }
                     };
 
-                    userModel.Requests.Add(requestToModel);
+                    responseModel.Requests.Add(requestToModel);
                 }
 
                 logger.LogInformation("Return reposnse.");
-                return Ok(userModel);
+                return Ok(responseModel);
             }
             catch (KeyNotFoundException ex)
             {
@@ -203,7 +203,7 @@ namespace FacesWebApi.Controller
             userRepository.Edit(user);
             await storage.SaveAsync();
 
-            var userModel = new
+            var responseModel = new
             {
                 Nickname = changesModel.Nickname,
                 Email = changesModel.Email,
@@ -211,7 +211,7 @@ namespace FacesWebApi.Controller
             };
 
             logger.LogInformation("Return answer.");
-            return Ok(userModel);
+            return Ok(responseModel);
         }
 
         [HttpDelete("{id}")]
