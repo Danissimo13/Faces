@@ -17,6 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="shape_predictor_68_face_landmarks.dat" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DlibDotNet" Version="19.20.0.20200725" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
   </ItemGroup>
@@ -34,7 +38,17 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="shape_predictor_68_face_landmarks.dat">
+    <Resource Include="shape_predictor_68_face_landmarks.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\shape_predictor_68_face_landmarks.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
