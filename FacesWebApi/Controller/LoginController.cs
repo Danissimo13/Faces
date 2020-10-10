@@ -57,14 +57,14 @@ namespace FacesWebApi.Controller
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurity(), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-            var response = new
+            var responseModel = new
             {
                 access_token = encodedJwt,
                 username = identity.Name
             };
 
             logger.LogInformation("Return answer.");
-            return Ok(response);
+            return Ok(responseModel);
         }
 
         [NonAction]
