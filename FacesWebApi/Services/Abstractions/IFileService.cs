@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Drawing;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace FacesWebApi.Services.Abstractions
@@ -15,6 +16,8 @@ namespace FacesWebApi.Services.Abstractions
         public string GlobalNewsImagesPath { get; set; }
 
         Task<string> SaveFileAsync(Stream stream, string path);
+        Task<string> SaveFileAsync(byte[] buffer, string path);
+        string SaveFile(Bitmap bitmap, string path);
         void DeleteFile(string path);
     }
 }
