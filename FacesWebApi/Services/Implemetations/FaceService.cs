@@ -2,6 +2,7 @@
 using FaceDetection.Core;
 using FacesStorage.Data.Abstractions;
 using FacesStorage.Data.Models;
+using FacesStorage.Data.Abstractions.SearchOptions;
 using FacesWebApi.Services.Abstractions;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -26,10 +27,20 @@ namespace FacesWebApi.Services.Implemetations
             this.facePathSystem = facePathSystem;
         }
 
-        public async Task<Request> CreateRequestAsync(string requestType, IFormFile fromImageFile, IFormFile toImageFile = null)
+        public async Task<Request> CreateRequestAsync(string requestType, IFormFile fromImageFile, IFormFile toImageFile, int? userId)
         {
             var requestRepository = storage.GetRepository<IRequestRepository>();
             var requestImageRepository = storage.GetRepository<IRequestImageRepository>();
+
+            User user = null;
+            if (userId.HasValue) {
+                var userRepository = storage.GetRepository<IUserRepository>();
+                user = await userRepository.GetAsync(options =>
+                {
+                    options.SearchType = UserSearchTypes.ById;
+                    options.UserId = userId.Value;
+                });
+            }
 
             Request request;
             switch (requestType)
@@ -41,7 +52,8 @@ namespace FacesWebApi.Services.Implemetations
                             throw new NullReferenceException("If RequestType is Swap, then ToImage cant be a null.");
                         }
 
-                        request = new SwapRequest() { Discriminator = nameof(SwapRequest) };
+                        request = new SwapRequest() { Discriminator = nameof(SwapRequest)};
+                        if (user != null) request.UserId = user.UserId;
                         await requestRepository.CreateAsync(request);
 
                         RequestImage fromImage = new RequestImage() { Request = request };
@@ -67,6 +79,7 @@ namespace FacesWebApi.Services.Implemetations
                 case nameof(CutRequest):
                     {
                         request = new CutRequest() { Discriminator = nameof(CutRequest) };
+                        if (user != null) request.UserId = user.UserId;
                         await requestRepository.CreateAsync(request);
 
                         RequestImage fromImage = new RequestImage() { Request = request };
@@ -83,6 +96,7 @@ namespace FacesWebApi.Services.Implemetations
                 case nameof(DetectRequest):
                     {
                         request = new DetectRequest() { Discriminator = nameof(DetectRequest) };
+                        if (user != null) request.UserId = user.UserId;
                         await requestRepository.CreateAsync(request);
 
                         RequestImage fromImage = new RequestImage() { Request = request };
@@ -114,37 +128,62 @@ namespace FacesWebApi.Services.Implemetations
             var responseImageRepository = storage.GetRepository<IResponseImageRepository>();
 
             Response response;
-            switch (request.Discriminator)
+            try
             {
-                case nameof(SwapRequest):
-                    {
-                        response = new SwapResponse() { Discriminator = nameof(SwapResponse) };
-                        await responseRepository.CreateAsync(response);
-
-                        string fromImagePath = Path.Combine(fileService.GlobalRequestImagesPath, request.Images.First().ImageName);
-                        string toImagePath = Path.Combine(fileService.GlobalRequestImagesPath, request.Images.Skip(1).First().ImageName);
-                        Bitmap swapFaces = FaceReplacer.ReplaceFaces(fromImagePath, toImagePath);
-
-                        ResponseImage responseImage = new ResponseImage() { Response = response };
-                        await responseImageRepository.CreateAsync(responseImage);
-                        await storage.SaveAsync();
-
-                        responseImage.ImageName = $"{responseImage.ImageId}.jpg";
-                        responseImageRepository.Edit(responseImage);
-
-                        fileService.SaveFile(swapFaces, Path.Combine(fileService.GlobalResponseImagesPath, responseImage.ImageName));
-
-                        break;
-                    }
-
-                case nameof(CutRequest):
-                    {
-                        response = new CutResponse() { Discriminator = nameof(CutResponse) };
-                        await responseRepository.CreateAsync(response);
-
-                        FaceRecognizer faceRecognizer = new FaceRecognizer(request.Images.First().ImageName, new RgbPixel(0, 0, 255), facePathSystem);
-                        foreach (byte[] faceBuffer in faceRecognizer.GetAllFacesImages())
+                switch (request.Discriminator)
+                {
+                    case nameof(SwapRequest):
                         {
+                            string fromImagePath = Path.Combine(fileService.GlobalRequestImagesPath, request.Images.First().ImageName);
+                            string toImagePath = Path.Combine(fileService.GlobalRequestImagesPath, request.Images.Skip(1).First().ImageName);
+                            Bitmap swapFaces = FaceReplacer.ReplaceFaces(fromImagePath, toImagePath);
+
+                            response = new SwapResponse() { Discriminator = nameof(SwapResponse) };
+                            await responseRepository.CreateAsync(response);
+
+                            ResponseImage responseImage = new ResponseImage() { Response = response };
+                            await responseImageRepository.CreateAsync(responseImage);
+                            await storage.SaveAsync();
+
+                            responseImage.ImageName = $"{responseImage.ImageId}.jpg";
+                            responseImageRepository.Edit(responseImage);
+
+                            fileService.SaveFile(swapFaces, Path.Combine(fileService.GlobalResponseImagesPath, responseImage.ImageName));
+
+                            break;
+                        }
+
+                    case nameof(CutRequest):
+                        {
+                            FaceRecognizer faceRecognizer = new FaceRecognizer(request.Images.First().ImageName, new RgbPixel(0, 0, 255), facePathSystem);
+                            var faceBuffers = faceRecognizer.GetAllFacesImages();
+
+                            response = new CutResponse() { Discriminator = nameof(CutResponse) };
+                            await responseRepository.CreateAsync(response);
+
+                            foreach (byte[] faceBuffer in faceBuffers)
+                            {
+                                ResponseImage responseImage = new ResponseImage() { Response = response };
+                                await responseImageRepository.CreateAsync(responseImage);
+                                await storage.SaveAsync();
+
+                                responseImage.ImageName = $"{responseImage.ImageId}.jpg";
+                                responseImageRepository.Edit(responseImage);
+
+                                await fileService.SaveFileAsync(faceBuffer, Path.Combine(fileService.GlobalResponseImagesPath, responseImage.ImageName));
+                            }
+
+                            break;
+                        }
+
+                    case nameof(DetectRequest):
+                        {
+                            FaceRecognizer faceRecognizer = new FaceRecognizer(request.Images.First().ImageName, new RgbPixel(0, 0, 255), facePathSystem);
+                            byte[] faceBuffer = faceRecognizer.GetOutlinedFacesImage();
+
+                            response = new DetectResponse() { Discriminator = nameof(DetectResponse) };
+                            await responseRepository.CreateAsync(response);
+
                             ResponseImage responseImage = new ResponseImage() { Response = response };
                             await responseImageRepository.CreateAsync(responseImage);
                             await storage.SaveAsync();
@@ -153,36 +192,28 @@ namespace FacesWebApi.Services.Implemetations
                             responseImageRepository.Edit(responseImage);
 
                             await fileService.SaveFileAsync(faceBuffer, Path.Combine(fileService.GlobalResponseImagesPath, responseImage.ImageName));
+
+                            break;
                         }
 
-                        break;
-                    }
+                    default:
+                        {
+                            throw new KeyNotFoundException($"RequestType is {request.Discriminator} not exist.");
+                        }
+                };
+            }
+            catch
+            {
+                foreach(RequestImage requestImage in request.Images)
+                {
+                    fileService.DeleteFile(Path.Combine(fileService.GlobalRequestImagesPath, requestImage.ImageName));
+                }
 
-                case nameof(DetectRequest):
-                    {
-                        response = new DetectResponse() { Discriminator = nameof(DetectResponse) };
-                        await responseRepository.CreateAsync(response);
+                requestRepository.Delete(request);
+                await storage.SaveAsync();
 
-                        FaceRecognizer faceRecognizer = new FaceRecognizer(request.Images.First().ImageName, new RgbPixel(0, 0, 255), facePathSystem);
-                        byte[] faceBuffer = faceRecognizer.GetOutlinedFacesImage();
-
-                        ResponseImage responseImage = new ResponseImage() { Response = response };
-                        await responseImageRepository.CreateAsync(responseImage);
-                        await storage.SaveAsync();
-
-                        responseImage.ImageName = $"{responseImage.ImageId}.jpg";
-                        responseImageRepository.Edit(responseImage);
-
-                        await fileService.SaveFileAsync(faceBuffer, Path.Combine(fileService.GlobalResponseImagesPath, responseImage.ImageName));
-
-                        break;
-                    }
-
-                default:
-                    {
-                        throw new KeyNotFoundException($"RequestType is {request.Discriminator} not exist.");
-                    }
-            };
+                throw new InvalidDataException("Non valid images.");
+            }
 
             request.Response = response;
             requestRepository.Edit(request);
