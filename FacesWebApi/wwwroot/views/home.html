@@ -60,8 +60,19 @@
     }
 
     #actions a {
-        padding : 5px;
-        margin : 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 5px;
+        margin: 10px;
+    }
+
+    #actions a img{
+        display : block;
+        margin : 10px auto;
+        width : 150px;
+        border-radius : var(--small-round);
     }
 
     @media(max-width:768px), (max-device-width:768px) {
@@ -88,8 +99,17 @@
     </a>
     <div id="actions-label">Actions:</div>
     <div id="actions">
-        <a href="#detect" class="default-btn"><span class="oi oi-magnifying-glass"> </span>&nbsp;Detect all faces</a>
-        <a href="#change" class="default-btn"><span class="oi oi-loop-circular"> </span>&nbsp;Change face</a>
-        <a href="#cut" class="default-btn"><span class="oi oi-layers"> </span>&nbsp;Cut all faces</a>
+        <a href="detect" link="ajax" class="default-btn">
+            <span><span class="oi oi-magnifying-glass"></span>&nbsp;Detect all faces</span>
+            <img class="inverted" src="img/design/swap-result.png"/>
+        </a>
+        <a href="swap" link="ajax" class="default-btn">
+            <span><span class="oi oi-loop-circular"></span>&nbsp;Change face</span>
+            <img class="inverted" src="img/design/swap-result.png" />
+        </a>
+        <a href="cut" link="ajax" class="default-btn">
+            <span><span class="oi oi-layers"></span>&nbsp;Cut all faces</span>
+            <img class="inverted" src="img/design/swap.png" />
+        </a>
     </div>
 </div>

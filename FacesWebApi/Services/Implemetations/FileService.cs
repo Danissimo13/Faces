@@ -48,7 +48,6 @@ namespace FacesWebApi.Services.Implemetations
                 {
                     await reader.CopyToAsync(writer);
                 }
-
             }
 
             return path;
