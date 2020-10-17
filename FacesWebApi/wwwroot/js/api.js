@@ -1,13 +1,34 @@
 ﻿$(function () {
+    window.api_post_form = async function api_post(controller, body, succeed, error) {
+        const apiUrl = 'api/' + controller;
+
+        $.ajax({
+            type: 'POST',
+            url: apiUrl,
+            contentType: false,
+            processData: false,
+            data: body,
+            xhrFields: {
+                withCredentials: true,
+            },
+            beforeSend: function (xhr) {
+                var token = getAuthToken();
+                xhr.setRequestHeader('Authorization', token);
+            },
+            success: succeed,
+            error: (xhr) => error(JSON.parse(xhr.responseText))
+        });
+    }
+
     window.api_post = async function api_post(controller, body, succeed, error) {
         const apiUrl = 'api/' + controller;
 
         const response = await fetch(apiUrl, {
-            method: "POST",
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
-                "Content-Type": "application/json",
-                "Authorization": getAuthToken()
+                'Content-Type': 'application/json',
+                'Authorization': getAuthToken()
             },
             body: JSON.stringify(body)
         });
@@ -19,24 +40,24 @@
         var apiUrl = 'api/' + controller;
 
         if (param) {
-            apiUrl += "/" + param;
+            apiUrl += '/' + param;
         }
 
         if (args) {
-            apiUrl += "?";
+            apiUrl += '?';
             for (var arg of args) {
-                apiUrl += arg.name + "=" + arg.value + "&";
+                apiUrl += arg.name + '=' + arg.value + '&';
             }
         }
 
         console.log(apiUrl);
 
         const response = await fetch(apiUrl, {
-            method: "GET",
+            method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                "Content-Type": "application/json",
-                "Authorization": getAuthToken()
+                'Content-Type': 'application/json',
+                'Authorization': getAuthToken()
             },
         });
 
@@ -47,15 +68,15 @@
         var apiUrl = 'api/' + controller;
 
         if (param) {
-            apiUrl += "/" + param;
+            apiUrl += '/' + param;
         }
 
         const response = await fetch(apiUrl, {
-            method: "PUT",
+            method: 'PUT',
             headers: {
                 'Accept': 'application/json',
-                "Content-Type": "application/json",
-                "Authorization": getAuthToken()
+                'Content-Type': 'application/json',
+                'Authorization': getAuthToken()
             },
             body: JSON.stringify(body)
         });
@@ -66,15 +87,15 @@
     window.api_delete = async function api_delete(controller, param, succeed, error) {
         var apiUrl = 'api/' + controller;
         if (param) {
-            apiUrl += "/" + param;
+            apiUrl += '/' + param;
         }
 
         const response = await fetch(apiUrl, {
-            method: "DELETE",
+            method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
-                "Content-Type": "application/json",
-                "Authorization": getAuthToken()
+                'Content-Type': 'application/json',
+                'Authorization': getAuthToken()
             },
         });
 

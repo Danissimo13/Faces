@@ -4,8 +4,7 @@
   "pages": {
     "home": {
       "title": "Home",
-      "menu": "home",
-      "inSitemap": true
+      "menu": "home"
     },
     "acc": {
       "title": "Acc",
@@ -31,9 +30,17 @@
       "title": "News",
       "menu": "home"
     },
-    "404": {
-      "title": "404",
+    "swap": {
+      "title": "Swap",
       "menu": "home"
+    },
+    "request": {
+      "title": "Request",
+      "menu": "home"
+    },
+    "404": {
+        "title": "404",
+        "menu": "home"
+      }
     }
-  }
 }
