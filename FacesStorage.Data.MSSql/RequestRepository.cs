@@ -11,7 +11,6 @@ namespace FacesStorage.Data.MSSql
     {
         private StorageContext storageContext;
         private DbSet<Request> requestDbSet;
-        private DbSet<RequestImage> requestImagesDbSet;
 
         public IQueryable<TRequest> All<TRequest>() where TRequest : Request
         {
@@ -19,10 +18,9 @@ namespace FacesStorage.Data.MSSql
             return requestsByTypes.AsQueryable<TRequest>();
         }
 
-        public async Task<TRequest> GetByIdAsync<TRequest>(int id) where TRequest : Request
+        public async Task<Request> GetByIdAsync(int id)
         {
-            var requestsByTypes = this.storageContext.Set<TRequest>();
-            TRequest request = await requestsByTypes
+            Request request = await requestDbSet
                 .Include(r => r.User)
                 .Include(r => r.Response)
                 .Include(r => r.Images)
@@ -53,7 +51,6 @@ namespace FacesStorage.Data.MSSql
         {
             this.storageContext = storageContext as StorageContext;
             this.requestDbSet = this.storageContext.Set<Request>();
-            this.requestImagesDbSet = this.storageContext.Set<RequestImage>();
         }
     }
 }

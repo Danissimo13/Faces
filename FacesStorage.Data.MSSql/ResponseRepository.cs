@@ -18,10 +18,9 @@ namespace FacesStorage.Data.MSSql
             return responsesByType.AsQueryable();
         }
 
-        public async Task<TResponse> GetByIdAsync<TResponse>(int id) where TResponse : Response
+        public async Task<Response> GetByIdAsync(int id)
         {
-            var responsesByType = storageContext.Set<TResponse>();
-            TResponse response = await responsesByType
+            Response response = await responseDbSet
                 .Include(r => r.Images)
                 .FirstOrDefaultAsync(r => r.ResponseId == id);
             if(response == null) throw new KeyNotFoundException($"Not found response with id equal {id}.");
