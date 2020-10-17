@@ -6,7 +6,7 @@ namespace FacesWebApi.Services.Abstractions
 {
     public interface IFaceService
     {
-        public Task<Request> CreateRequestAsync(string requestType, IFormFile fromImage, IFormFile toImage = null);
+        public Task<Request> CreateRequestAsync(string requestType, IFormFile fromImage, IFormFile toImage, int? userId);
         public Task<Response> CreateResponseAsync(Request request);
     }
 }
