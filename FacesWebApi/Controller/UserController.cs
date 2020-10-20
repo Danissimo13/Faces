@@ -99,7 +99,7 @@ namespace FacesWebApi.Controller
             {
                 logger.LogInformation($"Error: {ex.Message}");
                 ModelState.AddModelError("Id", ex.Message);
-                return BadRequest(ModelState);
+                return NotFound(ModelState);
             }
         }
 
@@ -115,10 +115,11 @@ namespace FacesWebApi.Controller
             var userRepository = storage.GetRepository<IUserRepository>();
             var roleRepository = storage.GetRepository<IRoleRepository>();
 
+            User user;
             try
             {
                 logger.LogInformation("Create user and add to db.");
-                User user = new User()
+                user = new User()
                 {
                     Nickname = registrationModel.Nickname,
                     Email = registrationModel.Email,
@@ -133,11 +134,13 @@ namespace FacesWebApi.Controller
             {
                 logger.LogInformation($"Error: {ex.Message}");
                 ModelState.AddModelError("Email", ex.Message);
-                return BadRequest(ModelState);
+                return Conflict(ModelState);
             }
 
+            string userUrl = $"acc?id={user.UserId}";
+
             logger.LogInformation("Return answer.");
-            return Ok();
+            return Created(userUrl, user.UserId);
         }
 
         [HttpPut("{id}")]
@@ -170,7 +173,7 @@ namespace FacesWebApi.Controller
             catch (KeyNotFoundException ex)
             {
                 ModelState.AddModelError("Id", ex.Message);
-                return BadRequest(ModelState);
+                return NotFound(ModelState);
             }
 
             if (user.Email != changesModel.Email)
@@ -184,7 +187,7 @@ namespace FacesWebApi.Controller
                     });
 
                     ModelState.AddModelError("Email", "User with same email actually exist.");
-                    return BadRequest(ModelState);
+                    return Conflict(ModelState);
                 }
                 catch { }
             }
@@ -211,7 +214,7 @@ namespace FacesWebApi.Controller
             };
 
             logger.LogInformation("Return answer.");
-            return Ok(responseModel);
+            return Accepted(responseModel);
         }
 
         [HttpDelete("{id}")]
