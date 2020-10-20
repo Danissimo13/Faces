@@ -22,7 +22,6 @@ namespace FacesStorage.Data.MSSql
 
             IQueryable<User> users = userDbSet.AsQueryable<User>();
 
-
             if (searchOptions.From.HasValue)
                 users = users.Skip(searchOptions.From.Value);
             if (searchOptions.Count.HasValue)
@@ -64,9 +63,9 @@ namespace FacesStorage.Data.MSSql
             var usersList = users.AsEnumerable().Select(u =>
             {
                 if(searchOptions.FromRequest.HasValue)
-                    u.Requests = u.Requests.Skip(searchOptions.FromRequest.Value).ToList();
+                    u.Requests = u.Requests.OrderByDescending(r => r.RequestId).Skip(searchOptions.FromRequest.Value).ToList();
                 if (searchOptions.RequestsCount.HasValue)
-                    u.Requests = u.Requests.Take(searchOptions.RequestsCount.Value).ToList();
+                    u.Requests = u.Requests.OrderByDescending(r => r.RequestId).Take(searchOptions.RequestsCount.Value).ToList();
                 return u;
             }).ToList();
 
@@ -121,9 +120,9 @@ namespace FacesStorage.Data.MSSql
             }
 
             if(searchOptions.FromRequest.HasValue)
-                user.Requests = user.Requests.Skip(searchOptions.FromRequest.Value).ToList();
+                user.Requests = user.Requests.OrderByDescending(r => r.RequestId).Skip(searchOptions.FromRequest.Value).ToList();
             if (searchOptions.RequestsCount.HasValue)
-                user.Requests = user.Requests.Take(searchOptions.RequestsCount.Value).ToList();
+                user.Requests = user.Requests.OrderByDescending(r => r.RequestId).Take(searchOptions.RequestsCount.Value).ToList();
 
             return user;
         }
