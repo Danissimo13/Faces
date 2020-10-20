@@ -6,6 +6,10 @@
       "title": "Home",
       "menu": "home"
     },
+    "blog": {
+      "title": "Blog",
+      "menu": "blog"
+    },
     "acc": {
       "title": "Acc",
       "menu": "acc"
@@ -28,19 +32,31 @@
     },
     "news": {
       "title": "News",
-      "menu": "home"
+      "menu": "blog"
     },
     "swap": {
       "title": "Swap",
+      "menu": "home"
+    },
+    "detect": {
+      "title": "Detect",
+      "menu": "home"
+    },
+    "cut": {
+      "title": "Cut",
       "menu": "home"
     },
     "request": {
       "title": "Request",
       "menu": "home"
     },
+    "dev": {
+      "title": "Development",
+      "menu": "dev"
+    },
     "404": {
-        "title": "404",
-        "menu": "home"
-      }
+      "title": "404",
+      "menu": "home"
     }
+  }
 }
