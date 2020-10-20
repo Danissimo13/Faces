@@ -22,7 +22,6 @@ namespace FacesWebApi.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AllowAnonymous]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class RequestController : ControllerBase
     {
@@ -47,6 +46,7 @@ namespace FacesWebApi.Controller
 
         // GET api/<RequestController>/5
         [HttpGet("{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Get(int id)
         {
             logger.LogInformation("Get action.");
@@ -59,7 +59,7 @@ namespace FacesWebApi.Controller
             try
             {
                 request = await requestRepository.GetByIdAsync(id);
-                response = await responseRepository.GetByIdAsync(id);
+                response = await responseRepository.GetByIdAsync(request.ResponseId.Value);
             }
             catch(KeyNotFoundException ex)
             {
@@ -90,13 +90,9 @@ namespace FacesWebApi.Controller
         }
     
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Post([FromForm] RequestModel requestModel)
         {
-            foreach(var head in Request.Headers)
-            {
-                Console.WriteLine(head.Key + " - " + head.Value);
-            }
-
             logger.LogInformation($"Post action. Nick: {User.Identity.IsAuthenticated} !");
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
@@ -132,13 +128,6 @@ namespace FacesWebApi.Controller
             return Ok(responseModel);
         }
 
-        // PUT api/<RequestController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<RequestController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
