@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using FacesStorage.Data.Abstractions;
 using FacesStorage.Data.Models;
@@ -32,39 +33,41 @@ namespace FacesWebApi.Controller
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Get()
+        public IActionResult Get([FromQuery] SearchNewsModel searchOptions)
         {
+            logger.LogInformation("Get action");
+
             var newsRepository = storage.GetRepository<NewsRepository>();
 
-            News news;
-            try
-            {
-                logger.LogInformation("Get news.");
-                news = await newsRepository.GetLastAsync();
-            }
-            catch (KeyNotFoundException ex)
-            {
-                logger.LogInformation($"Error: {ex.Message}");
-                ModelState.AddModelError("News", ex.Message);
-                return BadRequest(ModelState);
-            }
+            IEnumerable<News> allNews;
 
-            var newsModel = new
+            logger.LogInformation("Search all news.");
+            allNews = newsRepository.All((options) =>
             {
-                Id = news.NewsId,
-                Topic = news.Topic,
-                Body = news.Body,
-                PublishDate = news.PublishDate.ToShortDateString(),
-                ImageSrc = Path.Combine(fileService.LocalNewsImagesPath, news.ImageName)
-            };
+                options.From = searchOptions.From;
+                options.Count = searchOptions.Count;
+                options.WithBody = searchOptions.WithBody;
+            });
 
-            return Ok(newsModel);
+            var allNewsModel = allNews.Select(n => new
+            {
+                Id = n.NewsId,
+                Topic = n.Topic,
+                Body = n.Body,
+                PublishDate = n.PublishDate.ToShortDateString(),
+                ImageSrc = Path.Combine(fileService.LocalNewsImagesPath, n.ImageName)
+            });
+
+            logger.LogInformation("Return answer.");
+            return Ok(allNewsModel);
         }
 
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> Get(int id)
         {
+            logger.LogInformation("Get action");
+
             var newsRepository = storage.GetRepository<NewsRepository>();
 
             News news;
@@ -89,6 +92,7 @@ namespace FacesWebApi.Controller
                 ImageSrc = Path.Combine(fileService.LocalNewsImagesPath, news.ImageName)
             };
 
+            logger.LogInformation("Return answer.");
             return Ok(newsModel);
         }
 
@@ -161,15 +165,21 @@ namespace FacesWebApi.Controller
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
+            logger.LogInformation("Delete action.");
+
             var newsRepository = storage.GetRepository<INewsRepository>();
             try 
-            { 
+            {
                 News news = await newsRepository.GetAsync(id);
                 newsRepository.Delete(news);
                 await storage.SaveAsync();
+
+                logger.LogInformation($"Delete news with id-{id}.");
             }
             catch(KeyNotFoundException ex)
             {
+                logger.LogInformation($"Not found news with id-{id}.");
+
                 ModelState.AddModelError("Id", ex.Message);
                 return BadRequest(ModelState);
             }
