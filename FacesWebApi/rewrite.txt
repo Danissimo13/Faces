@@ -10,5 +10,6 @@ RewriteCond %{REQUEST_URI} !^/lib/(.*)$
 RewriteCond %{REQUEST_URI} !^/svg/(.*)$
 RewriteCond %{REQUEST_URI} !^/views/(.*)$
 RewriteCond %{REQUEST_URI} !^/api/(.*)$
+RewriteCond %{REQUEST_URI} !^/favicon.ico$
 
 RewriteRule ^(.+)$ /?q=$1 [L,QSA] 
