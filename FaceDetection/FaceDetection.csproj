@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="C:\Users\Danissimo\.nuget\packages\dlibdotnet\19.20.0.20200725\build\..\runtimes\win-AnyCPU\native\DlibDotNetNative.dll" />
+    <Content Remove="C:\Users\Danissimo\.nuget\packages\dlibdotnet\19.20.0.20200725\build\..\runtimes\win-AnyCPU\native\DlibDotNetNativeDnn.dll" />
     <Content Remove="C:\Users\YAROSLAV\.nuget\packages\dlibdotnet\19.20.0.20200725\build\..\runtimes\win-AnyCPU\native\DlibDotNetNative.dll" />
     <Content Remove="C:\Users\YAROSLAV\.nuget\packages\dlibdotnet\19.20.0.20200725\build\..\runtimes\win-AnyCPU\native\DlibDotNetNativeDnn.dll" />
   </ItemGroup>
@@ -33,7 +35,7 @@
       <HintPath>bin\Debug\netcoreapp3.1\AI.Dlib.dll</HintPath>
     </Reference>
     <Reference Include="DlibTestLib">
-      <HintPath>bin\Debug\netcoreapp3.1\DlibTestLib.dll</HintPath>
+      <HintPath>libs\DlibTestLib.dll</HintPath>
     </Reference>
   </ItemGroup>
 
