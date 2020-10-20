@@ -34,7 +34,7 @@ namespace FaceDetection.Core
 
                 foreach (var face in faces) // Draw rectangle around every face
                 {
-                    Dlib.DrawRectangle(Image, face, Color); 
+                    Dlib.DrawRectangle(Image, face, Color, thickness: 5); 
                 }
             }
 
@@ -53,7 +53,7 @@ namespace FaceDetection.Core
 
                 foreach (var face in faces) // Draw rectangle around every face
                 {
-                    Dlib.DrawRectangle(Image, face, Color);
+                    Dlib.DrawRectangle(Image, face, Color, thickness: 5);
                 }
             }
 
