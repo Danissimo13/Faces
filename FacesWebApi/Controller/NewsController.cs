@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using FacesStorage.Data.Abstractions;
+using FacesStorage.Data.Abstractions.Exceptions;
 using FacesStorage.Data.Models;
 using FacesStorage.Data.MSSql;
 using FacesWebApi.ApiModels;
@@ -76,7 +77,7 @@ namespace FacesWebApi.Controller
                 logger.LogInformation("Get news.");
                 news = await newsRepository.GetAsync(id);
             }
-            catch (KeyNotFoundException ex)
+            catch (NewsNotFoundException ex)
             {
                 logger.LogInformation($"Error: {ex.Message}");
                 ModelState.AddModelError("Id", ex.Message);
@@ -142,7 +143,7 @@ namespace FacesWebApi.Controller
                 logger.LogInformation("Get a news.");
                 news = await newsRepository.GetAsync(id);
             }
-            catch (KeyNotFoundException ex)
+            catch (NewsNotFoundException ex)
             {
                 ModelState.AddModelError("Id", ex.Message);
                 return BadRequest(ModelState);
@@ -176,7 +177,7 @@ namespace FacesWebApi.Controller
 
                 logger.LogInformation($"Delete news with id-{id}.");
             }
-            catch(KeyNotFoundException ex)
+            catch(NewsNotFoundException ex)
             {
                 logger.LogInformation($"Not found news with id-{id}.");
 

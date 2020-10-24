@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using System.IO;
 using FacesStorage.Data.Abstractions.SearchOptions;
 using System.Collections;
+using FacesStorage.Data.Abstractions.Exceptions;
 
 namespace FacesWebApi.Controller
 {
@@ -95,7 +96,7 @@ namespace FacesWebApi.Controller
                 logger.LogInformation("Return reposnse.");
                 return Ok(responseModel);
             }
-            catch (KeyNotFoundException ex)
+            catch (UserNotFoundException ex)
             {
                 logger.LogInformation($"Error: {ex.Message}");
                 ModelState.AddModelError("Id", ex.Message);
@@ -124,13 +125,13 @@ namespace FacesWebApi.Controller
                     Nickname = registrationModel.Nickname,
                     Email = registrationModel.Email,
                     Password = Encoding.UTF8.GetString(hashService.GetHash(registrationModel.Password)),
-                    Role = await roleRepository.GetByNameAsync(roleRepository.DefaultUserRole)
+                    Role = await roleRepository.GetAsync(roleRepository.DefaultUserRole)
                 };
 
                 await userRepository.CreateAsync(user);
                 await storage.SaveAsync();
             }
-            catch (DuplicateNameException ex)
+            catch (UserAlreadyExistException ex)
             {
                 logger.LogInformation($"Error: {ex.Message}");
                 ModelState.AddModelError("Email", ex.Message);
@@ -170,7 +171,7 @@ namespace FacesWebApi.Controller
                     options.WithPassword = true;
                 });
             }
-            catch (KeyNotFoundException ex)
+            catch (UserNotFoundException ex)
             {
                 ModelState.AddModelError("Id", ex.Message);
                 return NotFound(ModelState);
@@ -239,7 +240,7 @@ namespace FacesWebApi.Controller
                 userRepository.Delete(user);
                 await storage.SaveAsync();
             }
-            catch(KeyNotFoundException ex)
+            catch(UserNotFoundException ex)
             {
                 ModelState.AddModelError("Id", ex.Message);
                 return BadRequest(ModelState);

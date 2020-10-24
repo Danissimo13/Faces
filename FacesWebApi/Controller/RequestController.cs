@@ -1,22 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using FaceDetection.Core;
 using FacesStorage.Data.Abstractions;
 using FacesStorage.Data.Models;
-using FacesStorage.Data.MSSql;
 using FacesWebApi.ApiModels;
 using FacesWebApi.Services.Abstractions;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using FacesStorage.Data.Abstractions.Exceptions;
 
 namespace FacesWebApi.Controller
 {
@@ -38,13 +33,6 @@ namespace FacesWebApi.Controller
             this.logger = logger;
         }
 
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<RequestController>/5
         [HttpGet("{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> Get(int id)
@@ -58,12 +46,25 @@ namespace FacesWebApi.Controller
             Response response;
             try
             {
-                request = await requestRepository.GetByIdAsync(id);
-                response = await responseRepository.GetByIdAsync(request.ResponseId.Value);
+                request = await requestRepository.GetAsync((options) =>
+                {
+                    options.RequestId = id;
+                    options.WithImages = true;
+                });
+                response = await responseRepository.GetAsync((options) =>
+                {
+                    options.ResponseId = request.ResponseId.Value;
+                    options.WithImages = true;
+                });
             }
-            catch(KeyNotFoundException ex)
+            catch(RequestNotFoundException ex)
             {
-                ModelState.AddModelError("Id", ex.Message);
+                ModelState.AddModelError("Request", ex.Message);
+                return BadRequest(ModelState);
+            }
+            catch (ResponseNotFoundException ex)
+            {
+                ModelState.AddModelError("Response", ex.Message);
                 return BadRequest(ModelState);
             }
 
@@ -131,6 +132,8 @@ namespace FacesWebApi.Controller
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var requestRepository = storage.GetRepository<IRequestRepository>();
+            var responseRepository = storage.GetRepository<IResponseRepository>();
         }
     }
 }
