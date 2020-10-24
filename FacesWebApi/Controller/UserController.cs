@@ -46,18 +46,18 @@ namespace FacesWebApi.Controller
             try
             {
                 logger.LogInformation("Get user");
-                User user = await userRepository.GetAsync((optionsBuilder) =>
+                User user = await userRepository.GetAsync((options) =>
                 {
-                    optionsBuilder.SearchType = UserSearchTypes.ById;
-                    optionsBuilder.UserId = id.HasValue ? id.Value : int.Parse(User.FindFirst("Id").Value);
-                    optionsBuilder.WithRole = searchOptions.WithRole;
-                    optionsBuilder.WithRequests = searchOptions.WithRequests;
-                    optionsBuilder.WithRequestResponses = searchOptions.WithRequestResponses;
-                    optionsBuilder.WithRequestImages = searchOptions.WithRequestImages;
-                    optionsBuilder.WithResponseImages = searchOptions.WithResponseImages;
-                    optionsBuilder.FromRequest = searchOptions.FromRequest;
-                    optionsBuilder.RequestsCount = searchOptions.RequestsCount;
-                    optionsBuilder.WithPassword = false;
+                    options.SearchType = UserSearchTypes.ById;
+                    options.UserId = id.HasValue ? id.Value : int.Parse(User.FindFirst("Id").Value);
+                    options.WithRole = searchOptions.WithRole;
+                    options.WithRequests = searchOptions.WithRequests;
+                    options.WithRequestResponses = searchOptions.WithRequestResponses;
+                    options.WithRequestImages = searchOptions.WithRequestImages;
+                    options.WithResponseImages = searchOptions.WithResponseImages;
+                    options.FromRequest = searchOptions.FromRequest;
+                    options.RequestsCount = searchOptions.RequestsCount;
+                    options.WithPassword = false;
                 });
 
                 var responseModel = new
