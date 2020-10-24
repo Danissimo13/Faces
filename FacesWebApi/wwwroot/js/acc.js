@@ -32,6 +32,7 @@
         $('#information').css('display', 'flex');
 
         if (data.requests && data.requests[0]) {
+            $('#last-request a').attr('href', 'request?id=' + data.requests[0].requestId);
             $('#last-request #request-type').text(data.requests[0].requestType);
             $('#last-request #request-id').text(data.requests[0].requestId);
             if (data.requests[0].images) {
