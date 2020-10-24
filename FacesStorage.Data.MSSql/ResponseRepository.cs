@@ -1,6 +1,9 @@
 ﻿using FacesStorage.Data.Abstractions;
+using FacesStorage.Data.Abstractions.Exceptions;
+using FacesStorage.Data.Abstractions.SearchOptions;
 using FacesStorage.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,18 +15,17 @@ namespace FacesStorage.Data.MSSql
         private StorageContext storageContext;
         private DbSet<Response> responseDbSet;
 
-        public IQueryable<TResponse> All<TResponse>() where TResponse : Response
+        public async Task<Response> GetAsync(Action<ResponseSearchOptions> optionsBuilder)
         {
-            var responsesByType = storageContext.Set<TResponse>();
-            return responsesByType.AsQueryable();
-        }
+            ResponseSearchOptions searchOptions = new ResponseSearchOptions();
+            optionsBuilder(searchOptions);
 
-        public async Task<Response> GetByIdAsync(int id)
-        {
-            Response response = await responseDbSet
-                .Include(r => r.Images)
-                .FirstOrDefaultAsync(r => r.ResponseId == id);
-            if(response == null) throw new KeyNotFoundException($"Not found response with id equal {id}.");
+            var responses = responseDbSet;
+            if (searchOptions.WithImages)
+                responses.Include(r => r.Images);
+
+            Response response = await responses.FirstOrDefaultAsync(r => r.ResponseId == searchOptions.ResponseId);
+            if(response == null) throw new ResponseNotFoundException($"Not found response with id equal {searchOptions.ResponseId}.");
 
             return response;
         }
