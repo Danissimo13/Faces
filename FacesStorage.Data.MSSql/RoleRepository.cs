@@ -2,7 +2,7 @@
 using FacesStorage.Data.Abstractions.Exceptions;
 using FacesStorage.Data.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore.Internal;
 using System.Threading.Tasks;
 
 namespace FacesStorage.Data.MSSql
@@ -19,6 +19,11 @@ namespace FacesStorage.Data.MSSql
         {
             DefaultUserRole = "user";
             DefaultAdminRole = "admin";
+        }
+
+        public bool Any()
+        {
+            return roleDbSet.Any();
         }
 
         public async Task<Role> GetAsync(string name)
