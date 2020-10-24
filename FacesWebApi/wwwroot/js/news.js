@@ -13,6 +13,8 @@
         news_image.attr('src', data.imageSrc);
         news_body.text(data.body);
         news_publish_date.text(data.publishDate);
+
+        $('#news-page').css('display', 'flex');
     }
 
     function error_req(data) {
