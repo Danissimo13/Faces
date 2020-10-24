@@ -566,4 +566,12 @@ input.non-valid{
         width : 400px;
         height : 50px;
     }
+
+    #scoped-image-block {
+        background-color: white;
+        position: relative;
+        border-radius: var(--medium-round);
+        width: 80%;
+        border: 2px solid var(--violet-color);
+    }
 }
