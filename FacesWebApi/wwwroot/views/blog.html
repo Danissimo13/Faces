@@ -1,0 +1,77 @@
+﻿<style>
+    #blog-page{
+        display : none;
+        flex-direction : column;
+        align-items : center;
+    }
+
+    #blog-page h1{
+        margin : 5px;
+    }
+
+    #news-list {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+    #page-controller{
+        display : flex;
+        flex-direction : row;
+        justify-content : space-between;
+        align-items : center;
+        padding : 10px;
+        margin : 10px;
+    }
+
+    #page-controller a{
+        display : flex;
+        margin : 10px;
+        text-decoration : none;
+        padding : 7.5px;
+        border-radius : var(--small-round);
+        background-color : var(--violet-color);
+        color : var(--white-color);
+        font-size: 20px;
+    }
+
+    .news{
+        display : flex;
+        flex-direction : column;
+        align-items : flex-start;
+        padding : 10px;
+        text-decoration : none;
+        margin : 10px;
+        border : 2px solid var(--violet-color);
+        border-radius : var(--small-round);
+    }
+
+    .news .topic{
+        margin : 5px;
+        color : var(--violet-color);
+    }
+
+    .news .news-img{
+        width : 250px;
+        border-radius : var(--small-round);
+    }
+
+    .news .publish-date {
+        color: var(--black-color);
+        margin: 5px 5px 0px 5px;
+    }
+</style>
+
+<script src="js/blog.js"></script>
+
+<div id="blog-page">
+    <h1 class="text-glow">All project news</h1>
+    <div id="news-list">
+
+    </div>
+    <div id="page-controller">
+        <a id="prev-page" link="ajax"><span class="oi oi-arrow-thick-left"></span></a>
+        <a id="next-page" link="ajax"><span class="oi oi-arrow-thick-right"></span></a>
+    </div>
+</div>
