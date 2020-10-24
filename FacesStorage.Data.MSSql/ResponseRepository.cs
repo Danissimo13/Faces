@@ -20,9 +20,9 @@ namespace FacesStorage.Data.MSSql
             ResponseSearchOptions searchOptions = new ResponseSearchOptions();
             optionsBuilder(searchOptions);
 
-            var responses = responseDbSet;
+            var responses = responseDbSet.AsQueryable<Response>();
             if (searchOptions.WithImages)
-                responses.Include(r => r.Images);
+                responses = responses.Include(r => r.Images);
 
             Response response = await responses.FirstOrDefaultAsync(r => r.ResponseId == searchOptions.ResponseId);
             if(response == null) throw new ResponseNotFoundException($"Not found response with id equal {searchOptions.ResponseId}.");
