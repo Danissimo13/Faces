@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FacesStorage.Data.Abstractions.SearchOptions
+﻿namespace FacesStorage.Data.Abstractions.SearchOptions
 {
     public class NewsSearchOptions
     {
