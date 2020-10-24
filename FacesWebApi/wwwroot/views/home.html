@@ -9,7 +9,7 @@
     }
 
     #last-news {
-        display: flex;
+        display: none;
         flex-direction : column;
         width: 100%;
         text-decoration : none;
@@ -90,7 +90,7 @@
 
 <div id="home-page">
     <h1 class="text-glow">Faces web site</h1>
-    <a href="news?id=" link="ajax" id="last-news">
+    <a href="" link="ajax" id="last-news">
         <h2 id="last-news-topic"></h2>
         <div id="news-img-box">
             <img class="inverted" src="" />
@@ -101,7 +101,7 @@
     <div id="actions">
         <a href="detect" link="ajax" class="default-btn">
             <span><span class="oi oi-magnifying-glass"></span>&nbsp;Detect all faces</span>
-            <img class="inverted" src="img/design/swap-result.png"/>
+            <img class="inverted" src="img/design/detect-result.png"/>
         </a>
         <a href="swap" link="ajax" class="default-btn">
             <span><span class="oi oi-loop-circular"></span>&nbsp;Change face</span>
@@ -109,7 +109,7 @@
         </a>
         <a href="cut" link="ajax" class="default-btn">
             <span><span class="oi oi-layers"></span>&nbsp;Cut all faces</span>
-            <img class="inverted" src="img/design/swap.png" />
+            <img class="inverted" src="img/design/cut-result1.png" />
         </a>
     </div>
 </div>
