@@ -1,4 +1,5 @@
 ﻿using FacesStorage.Data.Abstractions;
+using FacesStorage.Data.Abstractions.Exceptions;
 using FacesStorage.Data.Abstractions.SearchOptions;
 using FacesStorage.Data.Models;
 using Microsoft.EntityFrameworkCore;
@@ -105,15 +106,15 @@ namespace FacesStorage.Data.MSSql
             {
                 case UserSearchTypes.ById:
                     user = await users.FirstOrDefaultAsync(u => u.UserId == searchOptions.UserId);
-                    if (user == null) throw new KeyNotFoundException($"Not found user with id equal {searchOptions.UserId}.");
+                    if (user == null) throw new UserNotFoundException($"Not found user with id equal {searchOptions.UserId}.");
                     break;
                 case UserSearchTypes.ByEmail:
                     user = await users.FirstOrDefaultAsync(u => u.Email == searchOptions.Email);
-                    if (user == null) throw new KeyNotFoundException($"Not found user with email equal {searchOptions.Email}.");
+                    if (user == null) throw new UserNotFoundException($"Not found user with email equal {searchOptions.Email}.");
                     break;
                 case UserSearchTypes.ByNickname:
                     user = await users.FirstOrDefaultAsync(u => u.Nickname == searchOptions.Nickname);
-                    if (user == null) throw new KeyNotFoundException($"Not found user with nickname equal {searchOptions.Nickname}.");
+                    if (user == null) throw new UserNotFoundException($"Not found user with nickname equal {searchOptions.Nickname}.");
                     break;
                 case UserSearchTypes.WithoutProperty:
                     break;
@@ -132,7 +133,7 @@ namespace FacesStorage.Data.MSSql
             var userWithSameEmailOrNick = await userDbSet.FirstOrDefaultAsync(u => (u.Email == user.Email) || (u.Nickname == user.Nickname));
             if (userWithSameEmailOrNick != null)
             {
-                throw new DuplicateNameException($"User with this email: {user.Email}, already exist.");
+                throw new UserAlreadyExistException($"User with this email: {user.Email}, already exist.");
             }
 
             var entityEntry = await userDbSet.AddAsync(user);
