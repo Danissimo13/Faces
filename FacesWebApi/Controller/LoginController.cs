@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using FacesStorage.Data.Abstractions.SearchOptions;
+using FacesStorage.Data.Abstractions.Exceptions;
 
 namespace FacesWebApi.Controller
 {
@@ -97,7 +98,7 @@ namespace FacesWebApi.Controller
                     return claimsIdentity;
                 }
             }
-            catch(KeyNotFoundException ex) 
+            catch(UserNotFoundException ex) 
             { 
                 logger.LogInformation($"Error: {ex.Message}"); 
             }
