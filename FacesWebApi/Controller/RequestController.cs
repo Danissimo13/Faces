@@ -50,6 +50,7 @@ namespace FacesWebApi.Controller
                 {
                     options.RequestId = id;
                     options.WithImages = true;
+                    options.WithUser = true;
                 });
                 response = await responseRepository.GetAsync((options) =>
                 {
