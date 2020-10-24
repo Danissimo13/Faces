@@ -1,6 +1,9 @@
 ﻿using FacesStorage.Data.Abstractions;
+using FacesStorage.Data.Abstractions.Exceptions;
+using FacesStorage.Data.Abstractions.SearchOptions;
 using FacesStorage.Data.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,20 +15,44 @@ namespace FacesStorage.Data.MSSql
         private StorageContext storageContext;
         private DbSet<Request> requestDbSet;
 
-        public IQueryable<TRequest> All<TRequest>() where TRequest : Request
+        public IEnumerable<Request> All(Action<RequestsSearchOptions> optionsBuilder)
         {
-            var requestsByTypes = this.storageContext.Set<TRequest>();
-            return requestsByTypes.AsQueryable<TRequest>();
+            RequestsSearchOptions searchOptions = new RequestsSearchOptions();
+            optionsBuilder(searchOptions);
+
+            var requests = requestDbSet.AsQueryable<Request>();
+            if (searchOptions.WithUser)
+                requests = requests.Include(r => r.User);
+            if (searchOptions.WithImages)
+                requests = requests.Include(r => r.Images);
+            if (searchOptions.WithResponse)
+                requests = requests.Include(r => r.Response);
+            if (searchOptions.WithResponseImages)
+                requests = requests.Include(r => r.Response).ThenInclude(r => r.Images);
+
+            requests = requests.Skip(searchOptions.From).Take(searchOptions.Count);
+
+            return requests;
         }
 
-        public async Task<Request> GetByIdAsync(int id)
+        public async Task<Request> GetAsync(Action<RequestSearchOptions> optionsBuilder)
         {
-            Request request = await requestDbSet
-                .Include(r => r.User)
-                .Include(r => r.Response)
-                .Include(r => r.Images)
-                .FirstOrDefaultAsync(r => r.RequestId == id);
-            if (request == null) throw new KeyNotFoundException($"Not found request with id equal {id}.");
+            RequestSearchOptions searchOptions = new RequestSearchOptions();
+            optionsBuilder(searchOptions);
+
+            var requests = requestDbSet.AsQueryable<Request>();
+            if (searchOptions.WithUser)
+                requests = requests.Include(r => r.User);
+            if (searchOptions.WithImages)
+                requests = requests.Include(r => r.Images);
+            if (searchOptions.WithResponse)
+                requests = requests.Include(r => r.Response);
+            if (searchOptions.WithResponseImages)
+                requests = requests.Include(r => r.Response).ThenInclude(r => r.Images);
+
+
+            Request request = await requests.FirstOrDefaultAsync(r => r.RequestId == searchOptions.RequestId);
+            if (request == null) throw new RequestNotFoundException($"Not found request with id equal {searchOptions.RequestId}.");
 
             return request;
         }
