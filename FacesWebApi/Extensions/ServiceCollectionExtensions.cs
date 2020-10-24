@@ -47,7 +47,7 @@ namespace FacesWebApi.Extensions
             var roleRepository = storage.GetRepository<IRoleRepository>();
             var userRepository = storage.GetRepository<IUserRepository>();
 
-            if (!roleRepository.All().Any())
+            if (!roleRepository.Any())
             {
                 roleRepository.CreateAsync(new Role() { Name = roleRepository.DefaultUserRole });
                 roleRepository.CreateAsync(new Role() { Name = roleRepository.DefaultAdminRole });
@@ -62,7 +62,7 @@ namespace FacesWebApi.Extensions
                     Nickname = adminData.GetValue<string>("Nickname"),
                     Email = adminData.GetValue<string>("Email"),
                     Password = Encoding.UTF8.GetString(hashService.GetHash(adminData.GetValue<string>("Password"))),
-                    Role = roleRepository.GetByNameAsync(roleRepository.DefaultAdminRole).Result
+                    Role = roleRepository.GetAsync(roleRepository.DefaultAdminRole).Result
                 }).Result;
                 storage.Save();
             }
