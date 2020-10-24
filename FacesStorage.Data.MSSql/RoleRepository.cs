@@ -1,8 +1,8 @@
 ﻿using FacesStorage.Data.Abstractions;
+using FacesStorage.Data.Abstractions.Exceptions;
 using FacesStorage.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FacesStorage.Data.MSSql
@@ -21,23 +21,10 @@ namespace FacesStorage.Data.MSSql
             DefaultAdminRole = "admin";
         }
 
-        public IQueryable<Role> All()
-        {
-            return roleDbSet.AsQueryable();
-        }
-
-        public async Task<Role> GetByIdAsync(int id)
-        {
-            Role role = await roleDbSet.FirstOrDefaultAsync(r => r.RoleId == id);
-            if (role == null) throw new KeyNotFoundException($"Not found role with id equal {id}.");
-
-            return role;
-        }
-
-        public async Task<Role> GetByNameAsync(string name)
+        public async Task<Role> GetAsync(string name)
         {
             Role role = await roleDbSet.FirstOrDefaultAsync(r => r.Name == name);
-            if (role == null) throw new KeyNotFoundException($"Not found role with name equal {name}.");
+            if (role == null) throw new RoleNotFoundException($"Not found role with name equal {name}.");
 
             return role;
         }
