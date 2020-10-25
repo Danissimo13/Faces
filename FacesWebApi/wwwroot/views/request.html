@@ -8,11 +8,11 @@
         margin : 10px;
     }
 
-    #request, #response, #user {
+    #request, #response, #user, #delete {
         border: 2px solid var(--violet-color);
-        border-radius : var(--medium-round);
-        padding : 10px;
-        margin-top : 10px;
+        border-radius: var(--medium-round);
+        padding: 10px;
+        margin-top: 10px;
     }
 
     #request-images, #response-images {
@@ -30,6 +30,14 @@
         width : 250px;
         border-radius : var(--small-round);
         margin : 5px;
+    }
+
+    #delete {
+        display : none;
+        text-align: center;
+        background-color: var(--danger-color) !important;
+        border-color: var(--danger-color) !important;
+        color : var(--white-color) !important;
     }
 
     #user-reference{
@@ -59,4 +67,5 @@
         <h2 class="text-glow">Creator account</h2>
         <a id="user-reference" class="default-btn"></a>
     </div>
+    <div id="delete" class="default-btn">Delete request</div>
 </div>

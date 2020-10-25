@@ -112,7 +112,7 @@ namespace FacesWebApi.Controller
             catch(KeyNotFoundException ex)
             {
                 ModelState.AddModelError("RequestType", ex.Message);
-                return BadRequest(ModelState);
+                return NotFound(ModelState);
             }
             catch(NullReferenceException ex)
             {
@@ -131,10 +131,62 @@ namespace FacesWebApi.Controller
         }
 
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
+            logger.LogInformation("Delete action.");
+
             var requestRepository = storage.GetRepository<IRequestRepository>();
             var responseRepository = storage.GetRepository<IResponseRepository>();
+
+            try
+            {
+                Request request = await requestRepository.GetAsync((options) =>
+                {
+                    options.RequestId = id;
+                    options.WithImages = true;
+                });
+
+                if(request.UserId.ToString() != User.FindFirst("Id").Value)
+                {
+                    logger.LogInformation("User have no permissions.");
+                    ModelState.AddModelError("User", "You have no permissions to do it.");
+                    return BadRequest(ModelState);
+                }
+
+                logger.LogInformation("Delete request.");
+                foreach (var image in request.Images)
+                {
+                    fileService.DeleteFile(Path.Combine(fileService.GlobalRequestImagesPath, image.ImageName));
+                }
+                requestRepository.Delete(request);
+
+                if (request.ResponseId.HasValue)
+                {
+                    Response response = await responseRepository.GetAsync((options) =>
+                    {
+                        options.ResponseId = request.ResponseId.Value;
+                        options.WithImages = true;
+                    });
+
+                    logger.LogInformation("Delete response.");
+                    foreach (var image in response.Images)
+                    {
+                        fileService.DeleteFile(Path.Combine(fileService.GlobalResponseImagesPath, image.ImageName));
+                    }
+                    responseRepository.Delete(response);
+                }
+
+                await storage.SaveAsync();
+            }
+            catch(RequestNotFoundException ex)
+            {
+                logger.LogInformation(ex.Message);
+                ModelState.AddModelError("Request", ex.Message);
+                return NotFound(ModelState);
+            }
+
+            logger.LogInformation("Return answer.");
+            return Ok();
         }
     }
 }
