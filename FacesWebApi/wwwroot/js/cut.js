@@ -12,7 +12,7 @@
         api_post_form('request', formData, succeed_req, error_req);
 
         function validate_form() {
-            if (!$('#from-img').val() || !$('#to-img').val()) {
+            if (!$('#from-img').val()) {
                 $('#cut-form #error').text('You didnt choose images.');
                 return false;
             }
