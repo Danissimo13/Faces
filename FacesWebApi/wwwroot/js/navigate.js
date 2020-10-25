@@ -16,7 +16,6 @@
             config = data;
             var page = (document.location.pathname.substr(1) + document.location.search) || config.mainPage;
 
-            console.log(page);
             navTo(page);
             bindHandlers();
         });
