@@ -11,6 +11,10 @@
 
     api_get('request', id, [], succeed_req, error_req)
 
+    $('#delete').on('click', function () {
+        api_delete('request', id, succeed_delete_req, error_delete_req);
+    });
+
     function succeed_req(data) {
         request_id.text(data.request.requestId);
         request_type.text(data.request.requestType);
@@ -34,14 +38,29 @@
         if (data.user) {
             user_ref.attr('href', 'acc?id=' + data.user.userId);
             user_ref.text(data.user.username);
+
+            if (payload && data.user.userId == payload.Id) {
+                $('#delete').css('display', 'block');
+            }
+            else {
+                $('#delete').remove();
+            }
         }
         else {
-            console.log('hello');
             $('#user').remove();
+            $('#delete').remove();
         }
     }
 
     function error_req(data) {
         notFound();
+    }
+
+    function succeed_delete_req(data) {
+        navTo('home');
+    }
+
+    function error_delete_req(data) {
+        displayModelErrors(data);
     }
 });
