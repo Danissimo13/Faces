@@ -4,7 +4,6 @@ using FacesStorage.Data.Abstractions.SearchOptions;
 using FacesStorage.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,12 +32,6 @@ namespace FacesStorage.Data.MSSql
         public async Task<Response> CreateAsync(Response response)
         {
             var entityEntry = await responseDbSet.AddAsync(response);
-            return entityEntry.Entity;
-        }
-
-        public Response Edit(Response response)
-        {
-            var entityEntry = responseDbSet.Update(response);
             return entityEntry.Entity;
         }
 

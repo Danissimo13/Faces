@@ -4,7 +4,6 @@ using FacesStorage.Data.Abstractions.SearchOptions;
 using FacesStorage.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,61 +15,9 @@ namespace FacesStorage.Data.MSSql
         private StorageContext storageContext;
         private DbSet<User> userDbSet;
 
-        public IList<User> All(Action<UsersSearchOptions> searchOptionsBuilder)
+        public bool Any()
         {
-            UsersSearchOptions searchOptions = new UsersSearchOptions();
-            searchOptionsBuilder(searchOptions);
-
-            IQueryable<User> users = userDbSet.AsQueryable<User>();
-
-            if (searchOptions.From.HasValue)
-                users = users.Skip(searchOptions.From.Value);
-            if (searchOptions.Count.HasValue)
-                users = users.Take(searchOptions.Count.Value);
-
-            if (searchOptions.WithRole)
-                users = users.Include(u => u.Role);
-            if (searchOptions.WithRequests)
-                users = users.Include(u => u.Requests);
-            if (searchOptions.WithRequestImages)
-                users = users.Include(u => u.Requests).ThenInclude(r => r.Images);
-            if (searchOptions.WithRequestResponses)
-                users = users.Include(u => u.Requests).ThenInclude(r => r.Response);
-            if (searchOptions.WithResponseImages)
-                users = users.Include(u => u.Requests).ThenInclude(r => r.Response).ThenInclude(r => r.Images);
-
-            users = users.Select(u => new User()
-            {
-                UserId = u.UserId,
-                Email = u.Email,
-                Nickname = u.Nickname,
-                Role = u.Role,
-                Requests = u.Requests,
-                Password = searchOptions.WithPassword ? u.Password : null
-            });
-
-            switch (searchOptions.SearchType)
-            {
-                case UsersSearchTypes.ByEmail:
-                    users = users.Where(u => u.Email.Contains(searchOptions.Email));
-                    break;
-                case UsersSearchTypes.ByNickname:
-                    users = users.Where(u => u.Nickname.Contains(searchOptions.Nickname));
-                    break;
-                case UsersSearchTypes.WithoutProperty:
-                    break;
-            }
-            
-            var usersList = users.AsEnumerable().Select(u =>
-            {
-                if(searchOptions.FromRequest.HasValue)
-                    u.Requests = u.Requests.OrderByDescending(r => r.RequestId).Skip(searchOptions.FromRequest.Value).ToList();
-                if (searchOptions.RequestsCount.HasValue)
-                    u.Requests = u.Requests.OrderByDescending(r => r.RequestId).Take(searchOptions.RequestsCount.Value).ToList();
-                return u;
-            }).ToList();
-
-            return usersList;
+            return userDbSet.Any();
         }
 
         public async Task<User> GetAsync(Action<UserSearchOptions> searchOptionsBuilder)

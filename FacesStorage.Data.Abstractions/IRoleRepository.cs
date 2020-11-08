@@ -1,5 +1,4 @@
 ﻿using FacesStorage.Data.Models;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FacesStorage.Data.Abstractions
@@ -11,7 +10,5 @@ namespace FacesStorage.Data.Abstractions
         bool Any();
         Task<Role> GetAsync(string name);
         Task<Role> CreateAsync(Role role);
-        Role Edit(Role role);
-        void Delete(Role role);
     }
 }

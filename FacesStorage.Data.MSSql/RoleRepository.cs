@@ -40,17 +40,6 @@ namespace FacesStorage.Data.MSSql
             return entityEntry.Entity;
         }
 
-        public Role Edit(Role role)
-        {
-            var entityEntry = roleDbSet.Update(role);
-            return entityEntry.Entity;
-        }
-
-        public void Delete(Role role)
-        {
-            roleDbSet.Remove(role);
-        }
-
         public void SetStorageContext(IStorageContext storageContext)
         {
             this.storageContext = storageContext as StorageContext;

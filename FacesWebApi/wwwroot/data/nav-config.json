@@ -54,6 +54,10 @@
       "title": "Development",
       "menu": "dev"
     },
+    "admin": {
+      "title": "Admin panel",
+      "menu": "home"
+    },
     "404": {
       "title": "404",
       "menu": "home"

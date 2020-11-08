@@ -38,7 +38,7 @@ namespace FacesWebApi.Controller
         {
             logger.LogInformation("Get action");
 
-            var newsRepository = storage.GetRepository<NewsRepository>();
+            var newsRepository = storage.GetRepository<INewsRepository>();
 
             IEnumerable<News> allNews;
 
@@ -69,7 +69,7 @@ namespace FacesWebApi.Controller
         {
             logger.LogInformation("Get action");
 
-            var newsRepository = storage.GetRepository<NewsRepository>();
+            var newsRepository = storage.GetRepository<INewsRepository>();
 
             News news;
             try
@@ -98,14 +98,14 @@ namespace FacesWebApi.Controller
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] NewsModel newsModel)
+        public async Task<IActionResult> Post([FromForm] NewsModel newsModel)
         {
             logger.LogInformation("Post action.");
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var newsRepository = storage.GetRepository<NewsRepository>();
+            var newsRepository = storage.GetRepository<INewsRepository>();
 
             logger.LogInformation("Create news and add to db.");
             News news = new News()
@@ -115,8 +115,9 @@ namespace FacesWebApi.Controller
                 PublishDate = DateTime.Now.Date
             };
             await newsRepository.CreateAsync(news);
+            await storage.SaveAsync();
 
-            string imageName = Path.Combine(news.NewsId.ToString(), Path.GetExtension(newsModel.Image.FileName));
+            string imageName = news.NewsId.ToString() + Path.GetExtension(newsModel.Image.FileName);
             await fileService.SaveFileAsync(newsModel.Image.OpenReadStream(), Path.Combine(fileService.GlobalNewsImagesPath, imageName));
             news.ImageName = imageName;
 
@@ -124,7 +125,9 @@ namespace FacesWebApi.Controller
             await storage.SaveAsync();
 
             logger.LogInformation("Return answer.");
-            return Ok();
+
+            string uri = "user?id=" + news.NewsId;
+            return Created(uri, news.NewsId);
         }
 
         [HttpPut("{id}")]

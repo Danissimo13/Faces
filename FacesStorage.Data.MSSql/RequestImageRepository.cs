@@ -22,11 +22,6 @@ namespace FacesStorage.Data.MSSql
             return entityEntry.Entity;
         }
 
-        public void Delete(RequestImage image)
-        {
-            requestImagesDbSet.Remove(image);
-        }
-
         public void SetStorageContext(IStorageContext storageContext)
         {
             this.storageContext = storageContext as StorageContext;

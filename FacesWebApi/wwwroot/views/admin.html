@@ -1,0 +1,80 @@
+﻿<style>
+    #admin-page{
+        display : none;
+        flex-direction : column;
+    }
+
+    #admin-page h1{
+        margin : 10px;
+    }
+
+    #admin-page .action{
+        padding : 10px;
+        margin : 10px;
+        border : 2px solid var(--violet-color);
+        border-radius : var(--small-round);
+    }
+
+    .action h2{
+        margin : 5px;
+    }
+
+    #admin-page .action form {
+        display : flex;
+        flex-direction: column;
+        align-items : flex-start;
+    }
+
+    #admin-page .action form label{
+        margin-top : 10px;
+    }
+
+    #admin-page #send-news {
+        width: 300px;
+        height: 30px;
+        margin-top: 10px;
+    }
+
+    #admin-page .action form input:not([type=submit]), #admin-page .action form textarea{
+        border: 1px solid var(--violet-color);
+        width: 300px;
+        padding-left: 5px;
+    }
+
+    #admin-page .action form textarea{
+        min-height : 200px;
+    }
+</style>
+
+<script src="js/admin.js"></script>
+<script src="js/file.js"></script>
+
+<div id="admin-page">
+    <h1 class="text-glow">Admin</h1>
+    <div class="action">
+        <h2 class="text-glow">Add news</h2>
+        <form id="news-form">
+            <label for="news-topic">Topic</label>
+            <input id="news-topic" name="Topic"/>
+
+            <label for="news-body">Body</label>
+            <textarea id="news-body" name="Body"></textarea>
+
+            <div id="images-line">
+                <div class="file">
+                    <div class="form-group">
+                        <input name="Image" id="news-image" class="input-file" type="file">
+                        <label for="news-image" class="btn btn-tertiary js-labelFile">
+                            <i class="icon fa fa-check"></i>
+                            <span class="js-fileName">Load image</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <span id="news-error" class="error"></span>
+
+            <input id="send-news" type="submit" class="default-btn" value="Publish" />
+        </form>
+    </div>
+</div>

@@ -9,7 +9,6 @@ namespace FacesStorage.Data.Abstractions
     {
         Task<Response> GetAsync(Action<ResponseSearchOptions> optionsBuilder); 
         Task<Response> CreateAsync(Response response);
-        Response Edit(Response response);
         void Delete(Response response);
     }
 }
