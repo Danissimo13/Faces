@@ -90,7 +90,8 @@ namespace FacesWebApi.Controller
                     {
                         new Claim("Id", user.UserId.ToString()),
                         new Claim("Name", user.Nickname),
-                        new Claim("Role", user.Role.Name)
+                        new Claim("Role", user.Role.Name),
+                        new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name)
                     };
 
                     var claimsIdentity = new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);

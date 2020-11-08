@@ -7,6 +7,5 @@ namespace FacesStorage.Data.Abstractions
     {
         Task<RequestImage> CreateAsync(RequestImage image);
         RequestImage Edit(RequestImage image);
-        void Delete(RequestImage image);
     }
 }

@@ -7,8 +7,6 @@ using FacesWebApi.Services.Implemetations;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
 using System.Text;
 
 namespace FacesWebApi.Extensions
@@ -55,15 +53,15 @@ namespace FacesWebApi.Extensions
             }
 
             var adminData = config.GetSection("Admin");
-            if (!userRepository.All(options => { }).Any())
+            if (!userRepository.Any())
             {
-                User user = userRepository.CreateAsync(new User()
+                userRepository.CreateAsync(new User()
                 {
                     Nickname = adminData.GetValue<string>("Nickname"),
                     Email = adminData.GetValue<string>("Email"),
                     Password = Encoding.UTF8.GetString(hashService.GetHash(adminData.GetValue<string>("Password"))),
                     Role = roleRepository.GetAsync(roleRepository.DefaultAdminRole).Result
-                }).Result;
+                }).Wait();
                 storage.Save();
             }
 

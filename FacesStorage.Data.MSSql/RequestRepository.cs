@@ -15,26 +15,6 @@ namespace FacesStorage.Data.MSSql
         private StorageContext storageContext;
         private DbSet<Request> requestDbSet;
 
-        public IEnumerable<Request> All(Action<RequestsSearchOptions> optionsBuilder)
-        {
-            RequestsSearchOptions searchOptions = new RequestsSearchOptions();
-            optionsBuilder(searchOptions);
-
-            var requests = requestDbSet.AsQueryable<Request>();
-            if (searchOptions.WithUser)
-                requests = requests.Include(r => r.User);
-            if (searchOptions.WithImages)
-                requests = requests.Include(r => r.Images);
-            if (searchOptions.WithResponse)
-                requests = requests.Include(r => r.Response);
-            if (searchOptions.WithResponseImages)
-                requests = requests.Include(r => r.Response).ThenInclude(r => r.Images);
-
-            requests = requests.Skip(searchOptions.From).Take(searchOptions.Count);
-
-            return requests;
-        }
-
         public async Task<Request> GetAsync(Action<RequestSearchOptions> optionsBuilder)
         {
             RequestSearchOptions searchOptions = new RequestSearchOptions();
