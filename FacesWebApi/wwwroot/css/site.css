@@ -478,6 +478,38 @@ input.non-valid{
     color: #5AAC7B
 }
 
+.language{
+    float : left;
+    margin : 10px;
+}
+
+.language__img {
+    cursor: pointer;
+}
+
+.language__img_active{
+    display : none;
+}
+
+body {
+    top: 0 !important;
+}
+
+.skiptranslate {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+#goog-gt-tt {
+    display: none !important;
+    visibility: hidden !important;
+}
+
+.goog-text-highlight {
+    background-color: rgba(255, 255, 255, 0.00) !important;
+    box-shadow: inherit !important;
+}
+
 @media(min-width:768px) and (min-device-width:768px) {
     #references {
         display: block !important;
