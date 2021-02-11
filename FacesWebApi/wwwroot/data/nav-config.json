@@ -54,6 +54,10 @@
       "title": "Development",
       "menu": "dev"
     },
+    "ai": {
+      "title": "AI",
+      "menu": "ai"
+    },
     "admin": {
       "title": "Admin panel",
       "menu": "home"

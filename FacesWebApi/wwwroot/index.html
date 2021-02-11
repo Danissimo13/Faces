@@ -20,6 +20,7 @@
                 <a href="about" link="ajax" menu="about"><span class="oi oi-globe"> <span>About</span></span> </a>
                 <a href="theme" link="ajax" menu="theme"><span class="oi oi-droplet"> <span>Theme</span></span></a>
                 <a href="dev" link="ajax" menu="dev"><span class="oi oi-terminal"> <span>Develop</span></span></a>
+                <a href="ai" link="ajax" menu="ai"><span class="oi oi-eye"> <span>AI</span></span></a>
             </nav>
             <div id="social-media">
                 <span id="social-label">Social media:</span>
@@ -31,6 +32,10 @@
     </aside>
 
     <main>
+        <div class="language">
+            <img src="/img/design/lang_ru.png" alt="ru" data-google-lang="ru" class="language__img" />
+            <img src="/img/design/lang_en.png" alt="en" data-google-lang="en" class="language__img" />
+        </div>
         <div id="theme-switcher">
             <div class="inner-circle"></div>
         </div>
@@ -46,6 +51,9 @@
         <script src="js/theme.js"></script>
         <script src="js/images.js"></script>
         <script src="js/validation.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+        <script src="js/google-translate.js"></script>
+        <script src="https://translate.google.com/translate_a/element.js?cb=TranslateInit"></script>
     </footer>
 </body>
 </html>
