@@ -1,0 +1,70 @@
+{
+  "siteTitle": "Faces",
+  "mainPage": "home",
+  "pages": {
+    "home": {
+      "title": "Home",
+      "menu": "home"
+    },
+    "blog": {
+      "title": "Blog",
+      "menu": "blog"
+    },
+    "acc": {
+      "title": "Acc",
+      "menu": "acc"
+    },
+    "login": {
+      "title": "Login",
+      "menu": "acc"
+    },
+    "reg": {
+      "title": "Registration",
+      "menu": "acc"
+    },
+    "about": {
+      "title": "About",
+      "menu": "about"
+    },
+    "theme": {
+      "title": "Themes",
+      "menu": "theme"
+    },
+    "news": {
+      "title": "News",
+      "menu": "blog"
+    },
+    "swap": {
+      "title": "Swap",
+      "menu": "home"
+    },
+    "detect": {
+      "title": "Detect",
+      "menu": "home"
+    },
+    "cut": {
+      "title": "Cut",
+      "menu": "home"
+    },
+    "request": {
+      "title": "Request",
+      "menu": "home"
+    },
+    "dev": {
+      "title": "Development",
+      "menu": "dev"
+    },
+    "ai": {
+      "title": "AI",
+      "menu": "ai"
+    },
+    "admin": {
+      "title": "Admin panel",
+      "menu": "home"
+    },
+    "404": {
+      "title": "404",
+      "menu": "home"
+    }
+  }
+}

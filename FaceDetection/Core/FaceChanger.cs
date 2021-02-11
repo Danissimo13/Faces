@@ -25,6 +25,9 @@ namespace FaceDetection.Core
             Image toImage = Image.FromFile(toImagePath);
             Bitmap toBitmap = new Bitmap(toImage);
 
+            fromImage.Dispose();
+            toImage.Dispose();
+
             Bitmap changedImage = ReplaceFaces(fromBitmap, toBitmap);
 
             return changedImage;

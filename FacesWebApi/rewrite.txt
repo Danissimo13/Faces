@@ -1,0 +1,15 @@
+﻿RewriteEngine On
+
+RewriteCond %{REQUEST_URI} !^/css/(.*)$
+RewriteCond %{REQUEST_URI} !^/data/(.*)$
+RewriteCond %{REQUEST_URI} !^/faces/(.*)$
+RewriteCond %{REQUEST_URI} !^/fonts/(.*)$
+RewriteCond %{REQUEST_URI} !^/img/(.*)$
+RewriteCond %{REQUEST_URI} !^/js/(.*)$
+RewriteCond %{REQUEST_URI} !^/lib/(.*)$
+RewriteCond %{REQUEST_URI} !^/svg/(.*)$
+RewriteCond %{REQUEST_URI} !^/views/(.*)$
+RewriteCond %{REQUEST_URI} !^/api/(.*)$
+RewriteCond %{REQUEST_URI} !^/favicon.ico$
+
+RewriteRule ^(.+)$ /?q=$1 [L,QSA] 

@@ -1,0 +1,71 @@
+﻿<style>
+    #theme-page h1{
+       margin : 10px;
+    }
+
+    #theme-page h3{
+        margin : 5px;
+    }
+
+    #themes, #light-themes {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    #themes .theme, #light-themes .theme {
+        display: flex;
+        cursor: pointer;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 50px;
+        border: 2px solid var(--violet-color);
+        border-radius: var(--medium-round);
+        font-weight: bold;
+        transition: all 500ms;
+        margin-left: 10px;
+    }
+
+    #themes .theme:hover, #light-themes .theme:hover {
+        background-color: var(--violet-color);
+        color: var(--white-color);
+    }
+
+    #themes .theme.active, #light-themes .theme.active {
+        background-color: var(--white-color);
+        color: var(--violet-color);
+    }
+
+    @media(max-width:768px), (max-device-width:768px){
+        #themes .theme, #light-themes .theme {
+            width: 100px;
+            height: 100px;
+        }
+    }
+</style>
+
+<script src="js/themes.js"></script>
+
+<div id="theme-page">
+    <h1 class="text-glow">All available color themes on the site</h1>
+    <h3>Dark themes</h3>
+    <div id="themes">
+        <div class="theme" id="green">Green</div>
+        <div class="theme" id="purple">Purp</div>
+        <div class="theme" id="red">Red</div>
+        <div class="theme" id="blue">Blue</div>
+        <div class="theme" id="orange">Orang</div>
+        <div class="theme" id="multi">Multi</div>
+    </div>
+    <h3>Light themes</h3>
+    <div id="light-themes">
+        <div class="theme" id="light-green">Green</div>
+        <div class="theme" id="light-purple">Purp</div>
+        <div class="theme" id="light-red">Red</div>
+        <div class="theme" id="light-blue">Blue</div>
+        <div class="theme" id="light-orange">Orang</div>
+        <div class="theme" id="light-multi">Multi</div>
+    </div>
+</div>

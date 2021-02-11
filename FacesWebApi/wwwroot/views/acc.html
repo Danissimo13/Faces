@@ -1,0 +1,231 @@
+﻿<style>
+    #acc-page {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #information, #last-request, #change-user, #exit, #delete {
+        display: none;
+        flex-direction: column;
+        margin-top: 10px;
+        border: 2px solid var(--violet-color);
+        border-radius: var(--small-round);
+        padding: 10px;
+    }
+
+    #information div, #information div {
+        margin-top: 5px;
+    }
+
+    #information h3, #last-request h3, #change-user h3, #exit h3, #delete h3 {
+        margin: 5px;
+        width : 100%;
+    }
+
+    #last-request #images {
+        display: flex;
+        flex-direction: row;
+        padding: 10px;
+    }
+
+    #last-request #images div {
+        border: 2px solid var(--violet-color);
+        border-radius: var(--small-round);
+        text-align: center;
+        padding: 10px;
+        margin-left: 10px;
+    }
+
+    #last-request #images div h4 {
+        margin: 5px;
+    }
+
+    #last-request a{
+        text-decoration : none;
+    }
+
+    #last-request img {
+        width: 200px;
+        border-radius: var(--small-round);
+        border: 1px solid var(--violet-color);
+    }
+
+    #change-form {
+        display: flex;
+        flex-direction: column;
+        align-items : center;
+        padding : 10px;
+        width: 250px;
+    }
+
+    #change-form label{
+        text-align: center;
+        color : var(--violet-color);
+        margin-top : 5px;
+    }
+
+    #change-form input{
+        border: 1px solid var(--violet-color);
+        padding-left : 5px;
+        color : var(--violet-color);
+        background-color : var(--white-color);
+        height : 25px;
+        width : 100%;
+    }
+
+    #change-form input[type=submit] {
+        padding: 0;
+        height: 30px;
+        margin-top: 5px;
+    }
+
+    #change-message{
+        text-align : center;
+    }
+
+    #delete-confirmation{
+        position : fixed;
+        display : none;
+        justify-content : center;
+        align-items : center;
+        width : 100%;
+        height : 100%;
+        top : 0;
+        left : 0;
+        background-color : var(--background-muffle-color);
+    }
+
+    #delete-confirmation-box {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        width: 15%;
+        height: 10%;
+        min-width: 300px;
+        min-height: 150px;
+        background-color: white;
+        border: 2px solid var(--violet-color);
+        border-radius: var(--medium-round);
+        text-align: center;
+    }
+
+    #delete-confirmation-box h4, #delete-confirmation-box h5{
+        margin : 5px;
+    }
+
+    #delete-question{
+        display : flex;
+        flex-direction : row;
+        width : 100%;
+    }
+
+    #delete-question button{
+        width : 40%;
+        height : 40px;
+        margin : 5%;
+    }
+    
+
+    @media(max-width:768px), (max-device-width:768px) {
+        #information, #last-request, #change-user{
+            margin-top : 15px;
+        }
+
+        #last-request #images{
+            flex-direction : column;
+        }
+
+        #last-request #images div{
+            margin-top : 10px;
+        }
+
+        #last-request #images img{
+            width : 300px;
+        }
+
+        #change-form{
+            min-width : 300px;
+            width : 50%;
+        }
+
+        #change-form label {
+            margin-top: 15px;
+        }
+
+        #change-form input{
+            height : 40px;
+        }
+
+        #change-form input[type=submit]{
+            font-size : 30px;
+            height : 45px;
+        }
+
+        #delete-confirmation-box{
+            width : 50%;
+            height : 300px;
+        }
+    }
+</style>
+
+<script src="js/authorize.js"></script>
+<script src="js/acc.js"></script>
+
+<div id="acc-page">
+    <div id="information">
+        <h3 class="text-glow">Account Info <span class="oi oi-browser"></span></h3>
+        <div>Nickname: <span id="user-name"></span></div>
+        <div>User id: <span id="user-id"></span></div>
+        <div>Email: <span id="user-email"></span></div>
+        <div>Role: <span id="user-role"></span></div>
+    </div>
+    <div id="last-request">
+        <a link="ajax"><h3 class="text-glow">Last request <span class="oi oi-fork"></span></h3></a>
+        <div>Request type: <span id="request-type"></span></div>
+        <div id="images">
+            <div>
+                <h4>Request preview</h4>
+                <img class="inverted" id="request-img" onclick="scope(this)" src="" />
+            </div>
+            <div>
+                <h4>Response preview</h4>
+                <img class="inverted" id="response-img" onclick="scope(this)" src="" />
+            </div> 
+        </div>
+        <div>Request id: <span id="request-id"></span></div>
+    </div>
+    <div id="change-user">
+        <h3 class="text-glow">Change account data <span class="oi oi-pencil"></span></h3>
+        <form id="change-form">
+            <label for="change-nickname">Nickname</label>
+            <input id="change-nickname" placeholder="Nickname" />
+
+            <label for="change-email">Email</label>
+            <input id="change-email" type="email" placeholder="Email" />
+
+            <label for="change-password">If you wanna change password</label>
+            <input id="change-password" type="password" placeholder="Password" readonly onfocus="this.removeAttribute('readonly')"/>
+
+            <span id="change-message"></span>
+            <input class="default-btn" type="submit" value="Change" />
+        </form>
+    </div>
+    <div id="delete">
+        <h3 class="text-glow">Delete page <span class="oi oi-x"></span></h3>
+        <div id="delete-confirmation" class="hidden">
+            <div id="delete-confirmation-box">
+                <h3>Are you sure you want to delete the account?</h3>
+                <h4>After confirmation, all data will be permanently deleted.</h4>
+                <div id="delete-question">
+                    <button class="default-btn" id="delete-cancel">Cancel</button>
+                    <button class="default-btn" id="delete-agree">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="exit">
+        <h3 class="text-glow">Exit <span class="oi oi-account-logout"></span></h3>
+    </div>
+</div>

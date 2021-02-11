@@ -1,0 +1,93 @@
+﻿<style>
+    #login-page{
+        display : flex;
+        flex-direction : row;
+    }
+    
+    #login-page h2{
+        margin : 5px;
+    }
+
+    #login-form{
+        display : flex;
+        flex-direction : column;
+        margin : 10px;
+        border: 2px solid var(--violet-color);
+        border-radius : var(--medium-round);
+        padding : 10px;
+    }
+
+    #login-form input{
+        border : 2px solid var(--violet-color);
+        padding-left : 5px;
+        width : 200px;
+        height : 20px;
+        background-color : var(--white-color);
+        color : var(--violet-color);
+        margin-top : 5px;
+    }
+
+    #login-form input[type=submit]{
+        height : 30px;
+        width : 100%;
+        margin-top : 10px;
+    }
+
+    #login-message{
+        text-align : center;
+    }
+
+    #to-register {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        padding: 10px;
+        border: 2px solid var(--violet-color);
+        border-radius: var(--medium-round);
+    }
+
+    #to-register a {
+        width : 100%;
+        height : 30px;
+    }
+
+    @media(max-width:768px), (max-device-width:768px) {
+        #login-page {
+            flex-direction: column;
+        }
+
+        #login-form input{
+            height : 40px;
+            width : calc(100% - 10px);
+            margin-top : 10px;
+        }
+
+        #login-form input[type=submit] {
+            height: 60px;
+        }
+
+        #to-register a{
+            height : 60px;
+        }
+    }
+</style>
+
+<script src="js/authorize.js"></script>
+<script src="js/login.js"></script>
+
+<div id="login-page">
+    <form id="login-form">
+        <h2>Log in</h2>
+        <input id="email" name="email" type="email" placeholder="Email" />
+        <input id="password" name="password" type="password" placeholder="Password" />
+
+        <span id="login-message"></span>
+
+        <input id="login-btn" class="default-btn" type="submit" value="Log in" />
+    </form>
+    <div id="to-register">
+        <h2>Registration?</h2>
+        <p>Have no account? Quickly create it! Your account will allow you to view your request history, evaluate other requests, and communicate with other users of our site.</p>
+        <a class="default-btn" link="ajax" href="reg">Go to registration</a>
+    </div>
+</div>

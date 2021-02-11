@@ -1,0 +1,144 @@
+﻿<style>
+    #swap-page form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #swap-page h1 {
+        margin: 5px;
+    }
+
+    #swap-page form #images-line {
+        display: flex;
+        flex-direction: column;
+        align-items : flex-start;
+    }
+
+    #swap-page form #images-line .file{
+        margin : 5px;
+    }
+
+    #swap .file-input {
+        margin: 5px;
+    }
+
+    #swap-page form input[type=submit] {
+        margin: 5px;
+        width: 335px;
+        height: 30px;
+    }
+
+    #load{
+        display : none;
+    }
+
+    #examples {
+        margin-top: 10px;
+        display: inline-block;
+        padding: 10px;
+        border: 2px solid var(--violet-color);
+        border-radius: var(--small-round);
+    }
+
+    #examples h2 {
+        margin: 5px;
+    }
+
+    #example-img {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #example-img div {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        text-align: center;
+        padding: 10px;
+        margin: 10px;
+        border: 2px solid var(--violet-color);
+        border-radius: var(--small-round);
+    }
+
+    #example-img div h3 {
+        margin: 5px;
+    }
+
+    #example-img img {
+        width: 150px;
+        border-radius: var(--small-round);
+    }
+
+    #error{
+        margin-left : 5px;
+    }
+
+    @media(max-width:768px), (max-device-width:768px) {
+        #swap-page form input[type=submit] {
+            width: 430px;
+            font-size: 40px;
+            height: 50px;
+        }
+
+        #example-img img {
+            width: 200px;
+        }
+    }
+</style>
+
+<script src="js/file.js"></script>
+<script src="js/swap.js"></script>
+
+<div id="swap-page">
+    <h1 class="text-glow">Swap faces on images</h1>
+    <img id="load" src="img/design/load.gif" />
+    <form id="swap-form">
+        <div id="images-line">
+            <div class="file">
+                <div class="form-group">
+                    <input name="FromImage" id="from-img" class="input-file" type="file">
+                    <label for="from-img" class="btn btn-tertiary js-labelFile">
+                        <i class="icon fa fa-check"></i>
+                        <span class="js-fileName">From image</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="file">
+                <div class="form-group">
+                    <input name="ToImage" id="to-img" class="input-file" type="file">
+                    <label for="to-img" class="btn btn-tertiary js-labelFile">
+                        <i class="icon fa fa-check"></i>
+                        <span class="js-fileName">To image</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+        <input name="RequestType" value="SwapRequest" readonly hidden/>
+        <span id="error" class="error"></span>
+
+        <input class="default-btn" type="submit" value="Swap" />
+    </form>
+
+    <div id="examples">
+        <h2>How it work?</h2>
+        <div id="example-img">
+            <div>
+                <h3>From image</h3>
+                <img class="inverted" src="img/design/swap-from.png" onclick="scope(this);" />
+            </div>
+            <div>
+                <h3>To image</h3>
+                <img class="inverted" src="img/design/swap-to.png" onclick="scope(this);" />
+            </div>
+            <div>
+                <h3>Result image</h3>
+                <img class="inverted" src="img/design/swap-result.png" onclick="scope(this);" />
+            </div>
+        </div>
+    </div>
+</div>

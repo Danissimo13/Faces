@@ -338,3 +338,6 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+*.snk
+/FacesWebApi/wwwroot/img/news
+/FacesWebApi/wwwroot/faces

@@ -1,0 +1,44 @@
+﻿<style>
+    #page{
+        display : flex;
+        flex-direction : column;
+        align-items : center;
+        width : 100%;
+    }
+
+    #page h1{
+        color : var(--violet-color);
+        font-size : 100px;
+    }
+
+    #page h1, #page h2, #page h3{
+        margin : 5px;
+        width : 100%;
+        text-align : center;
+    }
+
+    #travolta{
+        width : 300px;
+    }
+
+    @media(max-width:768px), (max-device-width:768px){
+        #page h1{
+            font-size : 150px;
+        }
+
+        #travolta {
+            width: 50%;
+            min-width : 300px;
+        }
+    }
+</style>
+
+<div id="page">
+    <h1 class="text-glow">404</h1>
+    <h2 class="text-glow">Page not found</h2>
+    <img class="inverted" id="travolta" src="img/design/404.gif" />
+    <h3 class="text-glow">Try clearing your browser cache and coming back here</h3>
+    <h3 class="text-glow">If you are sure that this page actually exist</h3>
+    <h3 class="text-glow">Write us to email or site support</h3>
+    <h3 class="text-glow">Or try enter to this page later</h3>
+</div>

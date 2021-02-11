@@ -1,24 +1,25 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Assets\**" />
+    <EmbeddedResource Remove="Assets\**" />
+    <None Remove="Assets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="C:\Users\Danissimo\.nuget\packages\dlibdotnet\19.20.0.20200725\build\..\runtimes\win-AnyCPU\native\DlibDotNetNative.dll" />
+    <Content Remove="C:\Users\Danissimo\.nuget\packages\dlibdotnet\19.20.0.20200725\build\..\runtimes\win-AnyCPU\native\DlibDotNetNativeDnn.dll" />
     <Content Remove="C:\Users\YAROSLAV\.nuget\packages\dlibdotnet\19.20.0.20200725\build\..\runtimes\win-AnyCPU\native\DlibDotNetNative.dll" />
     <Content Remove="C:\Users\YAROSLAV\.nuget\packages\dlibdotnet\19.20.0.20200725\build\..\runtimes\win-AnyCPU\native\DlibDotNetNativeDnn.dll" />
   </ItemGroup>
 
   <ItemGroup>
-    <ApplicationDefinition Include="Assets\shape_predictor_68_face_landmarks.dat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </ApplicationDefinition>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Assets\Input\" />
-    <Folder Include="Assets\Output\" />
+    <None Remove="shape_predictor_68_face_landmarks.dat" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,12 +35,22 @@
       <HintPath>bin\Debug\netcoreapp3.1\AI.Dlib.dll</HintPath>
     </Reference>
     <Reference Include="DlibTestLib">
-      <HintPath>bin\Debug\netcoreapp3.1\DlibTestLib.dll</HintPath>
+      <HintPath>libs\DlibTestLib.dll</HintPath>
     </Reference>
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="shape_predictor_68_face_landmarks.dat">
+    <Resource Include="shape_predictor_68_face_landmarks.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\shape_predictor_68_face_landmarks.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

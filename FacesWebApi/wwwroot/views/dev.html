@@ -1,0 +1,176 @@
+﻿<style>
+    #dev-page h1{
+        text-align : center;
+        margin : 0px;
+    }
+
+    #dev-page h2{
+        margin : 10px;
+    }
+
+    .description {
+        border: 2px solid var(--violet-color);
+        border-radius: var(--small-round);
+        margin: 5px;
+        padding: 5px;
+    }
+
+    #dev-page .controller-guide {
+        border: 2px solid var(--violet-color);
+        border-radius: var(--small-round);
+        margin: 10px;
+        padding: 10px;
+    }
+
+    #dev-page .actions {
+        display: none;
+    }
+</style>
+
+<script src="js/dev.js"></script>
+
+<div id="dev-page">
+    <h1 class="text-glow">Open Web Api for developers</h1>
+    <div class="controller-guide">
+        <h2 class="text-glow">User controller '/api/user/'</h2>
+        <ul class="actions">
+            <li>
+                <span>Get({id: int})</span>
+                <div class="description">
+                    <span>Optional parameters(from query):</span>
+                    <ul>
+                        <li>WithRole: bool</li>
+                        <li>WithRequests: bool</li>
+                        <li>FromRequest: int?</li>
+                        <li>RequestsCount: int?</li>
+                        <li>WithRequestImages: bool</li>
+                        <li>WithRequestResponses: bool</li>
+                        <li>WithResponseImages: bool</li>
+                    </ul>
+                    <span>Return a user object only without password, and with the appropriate properties.<br />Return 404 if user with same id not exist.</span>
+                </div>
+            </li>
+            <li>
+                <span>Post()</span>
+                <div class="description">
+                    <span>Necessary parameters(from body):</span>
+                    <ul>
+                        <li>Nickname: string</li>
+                        <li>Email: string</li>
+                        <li>Password: string</li>
+                    </ul>
+                    <span>Register user with default user role.<br />Return 409 if user with same email already exist.<br />Return 201 with account url and user id, if user was created.</span>
+                </div>
+            </li>
+            <li>
+                <span>Put({id: int})</span>
+                <div class="description">
+                    <span>Necessary parameters(from body):</span>
+                    <ul>
+                        <li>Nickname: string</li>
+                        <li>Email: string</li>
+                    </ul>
+                    <span>Optional parameters(from body):</span>
+                    <ul>
+                        <li>Password: string</li>
+                    </ul>
+                    <span>Change user data.<br />Return 409 if user with same email already exist.<br />Return 400 if non-authorized user.<br />Return 404 if user with same id not exist.<br />Return 202 if data succeesful changed.</span>
+                </div>
+            </li>
+            <li>
+                <span>Delete({id: int})</span>
+                <div class="description">
+                    <span>Delete user by id.<br />Return 400 if non-authorized user.<br />Return 404 if user with same id not exist.<br />Return 200 if user data succeesful delete.</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="controller-guide">
+        <h2 class="text-glow">Request controller '/api/request/'</h2>
+        <ul class="actions">
+            <li>
+                <span>Get({id: int})</span>
+                <div class="description">
+                    <span>Return a request model with response.<br />Return 404 if request with same id not exist.</span>
+                    <span>Response model</span>
+                    <ul>
+                        <li>
+                            Request
+                            <ul>
+                                <li>RequestId: int</li>
+                                <li>RequestType: string</li>
+                                <li>Images: array of objects {ImageSrc: string}(local img url)</li>
+                            </ul>
+                        </li>
+                        <li>
+                            Response
+                            <ul>
+                                <li>Images: array of objects {ImageSrc: string}(local img url)</li>
+                            </ul>
+                        </li>
+                        <li>
+                            User
+                            <ul>
+                                <li>UserId: int</li>
+                                <li>Username: string</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <span>Post()</span>
+                <div class="description">
+                    <span>Necessary parameters(from form):</span>
+                    <ul>
+                        <li>RequestType: string</li>
+                        <li>FromImage: image file</li>
+                    </ul>
+                    <span>Optional parameters(from form):</span>
+                    <ul>
+                        <li>ToImage: image file(if requestType == SwapRequest)</li>
+                    </ul>
+                    <span>Request types:</span>
+                    <ul>
+                        <li>SwapRequest: swap faces from fromImage to ToImage.</li>
+                        <li>DetectRequest: detect all faces on image.</li>
+                        <li>CutRequest: Cut all faces from image.</li>
+                    </ul>
+                    <span>Create request and response of face request.</span>
+                </div>
+            </li>
+            <li>
+                <span>Delete({id: int})</span>
+                <div class="description">
+                    <span>Delete request and response by id.<br />Return 400 if non-authorized user.<br />Return 404 if not found request with same id.<br />Return 200 if data succeesful delete.</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <div class="controller-guide">
+        <h2 class="text-glow">News controller '/api/news/'</h2>
+        <ul class="actions">
+            <li>
+                <span>Get()</span>
+                <div class="description">
+                    <span>Return a news list.</span>
+                    <span>Necessary parameters(from form):</span>
+                    <ul>
+                        <li>From: int</li>
+                        <li>Count: int</li>
+                        <li>WithBody: bool</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <span>Get({id: int})</span>
+                <div class="description">
+                    <span>Return a news.</span><br />
+                    <span>Return 404 if news with same id not found.</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
