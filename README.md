@@ -1,5 +1,5 @@
 # Faces
-App for recognition faces on image and find them on social media
+App for recognition faces on image and swap faces between photos.
 
 **-FaceDetection project**: project for AI model;
 
