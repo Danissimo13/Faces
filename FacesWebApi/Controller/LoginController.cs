@@ -20,29 +20,28 @@ namespace FacesWebApi.Controller
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private readonly IStorage storage;
-        private readonly IHashService hashService;
-        private readonly ILogger<LoginController> logger;
+        private readonly IStorage _storage;
+        private readonly IHashService _hashService;
+        private readonly ILogger<LoginController> _logger;
 
         public LoginController(IStorage storage, IHashService hashService, ILogger<LoginController> logger)
         {
-            this.storage = storage;
-            this.hashService = hashService;
-            this.logger = logger;
+            this._storage = storage;
+            this._hashService = hashService;
+            this._logger = logger;
         }
 
-        // POST api/<LoginController>
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] LoginModel login)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            logger.LogInformation($"Get identity for {login.Email}.");
+            _logger.LogInformation($"Get identity for {login.Email}.");
             var identity = await GetIdentity(login.Email, login.Password);
             if (identity == null)
             {
-                logger.LogInformation("Auth data invalid.");
+                _logger.LogInformation("Auth data invalid.");
                 ModelState.AddModelError("Password", "Invalid email or password.");
                 return BadRequest(ModelState);
             }
@@ -64,14 +63,14 @@ namespace FacesWebApi.Controller
                 username = identity.Name
             };
 
-            logger.LogInformation("Return answer.");
+            _logger.LogInformation("Return answer.");
             return Ok(responseModel);
         }
 
         [NonAction]
         private async Task<ClaimsIdentity> GetIdentity(string email, string password)
         {
-            var userRepository = storage.GetRepository<IUserRepository>();
+            var userRepository = _storage.GetRepository<IUserRepository>();
 
             try
             {
@@ -83,9 +82,9 @@ namespace FacesWebApi.Controller
                     optionsBuilder.WithPassword = true;
                 });
 
-                if (user.Password == Encoding.UTF8.GetString(hashService.GetHash(password)))
+                if (user.Password == Encoding.UTF8.GetString(_hashService.GetHash(password)))
                 {
-                    logger.LogInformation("Nice pass");
+                    _logger.LogInformation("Nice pass");
                     var claims = new List<Claim>
                     {
                         new Claim("Id", user.UserId.ToString()),
@@ -101,7 +100,7 @@ namespace FacesWebApi.Controller
             }
             catch(UserNotFoundException ex) 
             { 
-                logger.LogInformation($"Error: {ex.Message}"); 
+                _logger.LogInformation($"Error: {ex.Message}"); 
             }
 
             return null;
