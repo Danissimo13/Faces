@@ -4,8 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <SignAssembly>false</SignAssembly>
     <AssemblyOriginatorKeyFile>key.snk.pfx</AssemblyOriginatorKeyFile>
+<<<<<<< HEAD
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
     <AspNetCoreModuleName>AspNetCoreModule</AspNetCoreModuleName>
+=======
+>>>>>>> 5a02a88a903a252cd896c6ec4fef68b8ce89d3d4
   </PropertyGroup>
 
   <ItemGroup>

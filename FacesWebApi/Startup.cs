@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+<<<<<<< HEAD
+=======
+using Microsoft.Extensions.Hosting;
+>>>>>>> 5a02a88a903a252cd896c6ec4fef68b8ce89d3d4
 using Microsoft.IdentityModel.Tokens;
 
 namespace FacesWebApi
@@ -50,10 +54,21 @@ namespace FacesWebApi
             services.AddDefaultModelsToStorage(Configuration);
         }
 
+<<<<<<< HEAD
+=======
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+>>>>>>> 5a02a88a903a252cd896c6ec4fef68b8ce89d3d4
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHashService hash)
         {
             app.UseDeveloperExceptionPage();
             
+            var options = new RewriteOptions()
+                .AddApacheModRewrite(env.ContentRootFileProvider, "rewrite.txt");
+            app.UseRewriter(options);
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             var options = new RewriteOptions()
                 .AddApacheModRewrite(env.ContentRootFileProvider, "rewrite.txt");
             app.UseRewriter(options);
